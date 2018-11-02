@@ -3,10 +3,22 @@
     "name": "ACTIVE_INDEX"
   },
   {
+    "name": "ANIMATOR_MAP"
+  },
+  {
+    "name": "AUTO_STYLE"
+  },
+  {
+    "name": "AnimatePipe"
+  },
+  {
     "name": "AnimationWorldComponent"
   },
   {
-    "name": "AnimationWorldComponent_div_Template_6"
+    "name": "AnimationWorldComponent_div_Template_12"
+  },
+  {
+    "name": "AnonymousSubject"
   },
   {
     "name": "BINDING_INDEX"
@@ -16,6 +28,12 @@
   },
   {
     "name": "BoundPlayerFactory"
+  },
+  {
+    "name": "CANCEL_ALL_TRANSITIONS_VALUE"
+  },
+  {
+    "name": "CANCEL_NEXT_TRANSITION_VALUE"
   },
   {
     "name": "CLEANUP"
@@ -37,6 +55,9 @@
   },
   {
     "name": "CorePlayerHandler"
+  },
+  {
+    "name": "CssTransitionAnimator"
   },
   {
     "name": "DECLARATION_VIEW"
@@ -70,6 +91,9 @@
   },
   {
     "name": "FactoryPrototype"
+  },
+  {
+    "name": "HALF_A_SECOND"
   },
   {
     "name": "HEADER_OFFSET"
@@ -147,7 +171,16 @@
     "name": "NullInjector"
   },
   {
+    "name": "ONE_SECOND"
+  },
+  {
+    "name": "ObjectUnsubscribedError"
+  },
+  {
     "name": "ObjectUnsubscribedErrorImpl"
+  },
+  {
+    "name": "Observable"
   },
   {
     "name": "Optional"
@@ -189,10 +222,31 @@
     "name": "SWITCH_VIEW_CONTAINER_REF_FACTORY"
   },
   {
+    "name": "SafeSubscriber"
+  },
+  {
     "name": "SimpleKeyframePlayer"
   },
   {
     "name": "SkipSelf"
+  },
+  {
+    "name": "StylingPlayer"
+  },
+  {
+    "name": "Subject"
+  },
+  {
+    "name": "SubjectSubscriber"
+  },
+  {
+    "name": "SubjectSubscription"
+  },
+  {
+    "name": "Subscriber"
+  },
+  {
+    "name": "Subscription"
   },
   {
     "name": "TAIL"
@@ -205,6 +259,9 @@
   },
   {
     "name": "TemplateRef"
+  },
+  {
+    "name": "UnsubscriptionError"
   },
   {
     "name": "UnsubscriptionErrorImpl"
@@ -222,9 +279,6 @@
     "name": "ViewRef"
   },
   {
-    "name": "WebAnimationsPlayer"
-  },
-  {
     "name": "_CLEAN_PROMISE"
   },
   {
@@ -237,7 +291,19 @@
     "name": "_THROW_IF_NOT_FOUND"
   },
   {
+    "name": "__assign"
+  },
+  {
     "name": "__extends"
+  },
+  {
+    "name": "__extends$1"
+  },
+  {
+    "name": "__extends$2"
+  },
+  {
+    "name": "__extends$3"
   },
   {
     "name": "__read"
@@ -267,10 +333,31 @@
     "name": "_c4"
   },
   {
+    "name": "_c5"
+  },
+  {
+    "name": "_c6"
+  },
+  {
+    "name": "_c7"
+  },
+  {
+    "name": "_c8"
+  },
+  {
+    "name": "_c9"
+  },
+  {
+    "name": "_convertTimeValueToMS"
+  },
+  {
     "name": "_currentNamespace"
   },
   {
     "name": "_devMode"
+  },
+  {
+    "name": "_enable_super_gross_mode_that_will_cause_bad_things"
   },
   {
     "name": "_global"
@@ -303,10 +390,19 @@
     "name": "allocStylingContext"
   },
   {
-    "name": "animateStyleFactory"
+    "name": "appendChild"
   },
   {
-    "name": "appendChild"
+    "name": "applyClassChanges"
+  },
+  {
+    "name": "applyReflow"
+  },
+  {
+    "name": "applyStyleChanges"
+  },
+  {
+    "name": "applyTransition"
   },
   {
     "name": "attachPatchData"
@@ -321,7 +417,13 @@
     "name": "bindPlayerFactory"
   },
   {
+    "name": "bindingRootIndex"
+  },
+  {
     "name": "bindingUpdated"
+  },
+  {
+    "name": "bindingUpdated2"
   },
   {
     "name": "bloomAdd"
@@ -334,6 +436,9 @@
   },
   {
     "name": "buildAnimationPlayer"
+  },
+  {
+    "name": "buildTransitionStr"
   },
   {
     "name": "cacheMatchingLocalNames"
@@ -351,6 +456,9 @@
     "name": "canInsertNativeNode"
   },
   {
+    "name": "canReportError"
+  },
+  {
     "name": "checkNoChanges"
   },
   {
@@ -361,6 +469,12 @@
   },
   {
     "name": "componentRefresh"
+  },
+  {
+    "name": "computeStyle"
+  },
+  {
+    "name": "config"
   },
   {
     "name": "containerInternal"
@@ -447,6 +561,9 @@
     "name": "defineInjectable"
   },
   {
+    "name": "definePipe"
+  },
+  {
     "name": "delegateToClassInput"
   },
   {
@@ -474,7 +591,13 @@
     "name": "discoverDirectives"
   },
   {
+    "name": "doPreCompute"
+  },
+  {
     "name": "domRendererFactory3"
+  },
+  {
+    "name": "elementClassProp"
   },
   {
     "name": "elementCreate"
@@ -489,6 +612,9 @@
     "name": "elementStart"
   },
   {
+    "name": "elementStyleProp"
+  },
+  {
     "name": "elementStyling"
   },
   {
@@ -498,7 +624,13 @@
     "name": "elementStylingMap"
   },
   {
+    "name": "empty"
+  },
+  {
     "name": "enterView"
+  },
+  {
+    "name": "errorObject"
   },
   {
     "name": "executeHooks"
@@ -549,6 +681,9 @@
     "name": "firstTemplatePass"
   },
   {
+    "name": "flattenUnsubscriptionErrors"
+  },
+  {
     "name": "generateExpandoInstructionBlock"
   },
   {
@@ -559,6 +694,12 @@
   },
   {
     "name": "getBeforeNodeForView"
+  },
+  {
+    "name": "getBinding"
+  },
+  {
+    "name": "getBindingRoot"
   },
   {
     "name": "getBindingsEnabled"
@@ -595,6 +736,9 @@
   },
   {
     "name": "getCurrentSanitizer"
+  },
+  {
+    "name": "getCurrentView"
   },
   {
     "name": "getDirectiveDef"
@@ -690,6 +834,9 @@
     "name": "getPipeDef"
   },
   {
+    "name": "getPipeDef$1"
+  },
+  {
     "name": "getPlayerBuilder"
   },
   {
@@ -706,6 +853,9 @@
   },
   {
     "name": "getPreviousOrParentTNode"
+  },
+  {
+    "name": "getPromiseCtor"
   },
   {
     "name": "getProp"
@@ -765,6 +915,12 @@
     "name": "getViewData"
   },
   {
+    "name": "handleComputeStyle"
+  },
+  {
+    "name": "handleReflow"
+  },
+  {
     "name": "hasParentInjector"
   },
   {
@@ -772,6 +928,9 @@
   },
   {
     "name": "hasValueChanged"
+  },
+  {
+    "name": "hostReportError"
   },
   {
     "name": "includeViewProviders"
@@ -819,6 +978,12 @@
     "name": "invertObject"
   },
   {
+    "name": "invokeStylingAnimation"
+  },
+  {
+    "name": "isArray"
+  },
+  {
     "name": "isClassBased"
   },
   {
@@ -852,6 +1017,9 @@
     "name": "isFactory"
   },
   {
+    "name": "isFunction"
+  },
+  {
     "name": "isJsObject"
   },
   {
@@ -867,10 +1035,16 @@
     "name": "isNodeMatchingSelectorList"
   },
   {
+    "name": "isObject"
+  },
+  {
     "name": "isPositive"
   },
   {
     "name": "isProceduralRenderer"
+  },
+  {
+    "name": "isPure"
   },
   {
     "name": "isRootView"
@@ -894,7 +1068,13 @@
     "name": "listener"
   },
   {
+    "name": "load"
+  },
+  {
     "name": "loadContext"
+  },
+  {
+    "name": "loadInternal"
   },
   {
     "name": "locateHostElement"
@@ -945,6 +1125,27 @@
     "name": "noop"
   },
   {
+    "name": "noop$1"
+  },
+  {
+    "name": "now"
+  },
+  {
+    "name": "observable"
+  },
+  {
+    "name": "parseTimingExp"
+  },
+  {
+    "name": "pipe"
+  },
+  {
+    "name": "pipeBind2"
+  },
+  {
+    "name": "pipeFromArray"
+  },
+  {
     "name": "pointers"
   },
   {
@@ -961,6 +1162,9 @@
   },
   {
     "name": "projectionNodeStack"
+  },
+  {
+    "name": "pureFunction2"
   },
   {
     "name": "queueComponentIndexForCheck"
@@ -1027,6 +1231,12 @@
   },
   {
     "name": "resolveDirectives"
+  },
+  {
+    "name": "restoreView"
+  },
+  {
+    "name": "rxSubscriber"
   },
   {
     "name": "saveNameToExportMap"
@@ -1110,6 +1320,9 @@
     "name": "setTNodeAndViewData"
   },
   {
+    "name": "setTransition"
+  },
+  {
     "name": "setUpAttributes"
   },
   {
@@ -1117,6 +1330,9 @@
   },
   {
     "name": "shouldSearchParent"
+  },
+  {
+    "name": "store"
   },
   {
     "name": "storeCleanupFn"
@@ -1155,13 +1371,31 @@
     "name": "tickRootContext"
   },
   {
+    "name": "toSubscriber"
+  },
+  {
     "name": "trackByIdentity"
   },
   {
     "name": "traverseNextElement"
   },
   {
+    "name": "tryCatch"
+  },
+  {
+    "name": "tryCatcher"
+  },
+  {
+    "name": "updateBinding"
+  },
+  {
+    "name": "updateClassProp"
+  },
+  {
     "name": "updateSinglePointerValues"
+  },
+  {
+    "name": "updateStyleProp"
   },
   {
     "name": "updateStylingMap"

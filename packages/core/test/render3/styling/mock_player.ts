@@ -5,56 +5,39 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+import {Subject} from 'rxjs';
+
 import {PlayState, Player} from '../../../src/render3/interfaces/player';
 
 export class MockPlayer implements Player {
+  status !: Subject<PlayState|string>;
   parent: Player|null = null;
-
   log: string[] = [];
   state: PlayState = PlayState.Pending;
-  private _listeners: {[state: string]: (() => any)[]} = {};
 
-  constructor(public value?: any) {}
+  constructor(public value?: any) { this.status = new Subject<PlayState|string>(); }
 
   play(): void {
-    if (this.state === PlayState.Running) return;
-
-    this.state = PlayState.Running;
-    this._emit(PlayState.Running);
+    if (this.state < PlayState.Paused) {
+      this.status.next(this.state = PlayState.Running);
+    }
   }
 
   pause(): void {
-    if (this.state === PlayState.Paused) return;
-
-    this.state = PlayState.Paused;
-    this._emit(PlayState.Paused);
+    if (this.state !== PlayState.Paused) {
+      this.status.next(this.state = PlayState.Paused);
+    }
   }
 
   finish(): void {
-    if (this.state >= PlayState.Finished) return;
-
-    this.state = PlayState.Finished;
-    this._emit(PlayState.Finished);
+    if (this.state < PlayState.Finished) {
+      this.status.next(this.state = PlayState.Finished);
+    }
   }
 
   destroy(): void {
-    if (this.state >= PlayState.Destroyed) return;
-
-    this.state = PlayState.Destroyed;
-    this._emit(PlayState.Destroyed);
-  }
-
-  addEventListener(state: PlayState|number, cb: () => any): void {
-    const key = state.toString();
-    const arr = this._listeners[key] || (this._listeners[key] = []);
-    arr.push(cb);
-  }
-
-  private _emit(state: PlayState) {
-    const callbacks = this._listeners[state] || [];
-    for (let i = 0; i < callbacks.length; i++) {
-      const cb = callbacks[i];
-      cb();
+    if (this.state < PlayState.Destroyed) {
+      this.status.next(this.state = PlayState.Destroyed);
     }
   }
 }

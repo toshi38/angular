@@ -190,6 +190,11 @@ export {
   getPlayers as ɵgetPlayers,
 } from './render3/players';
 
+export {
+  AnimatePipe as ɵAnimatePipe,
+  AnimatePipeModule as ɵAnimatePipeModule
+} from './render3/animations/animate_pipe';
+
 // we reexport these symbols just so that they are retained during the dead code elimination
 // performed by rollup while it's creating fesm files.
 //

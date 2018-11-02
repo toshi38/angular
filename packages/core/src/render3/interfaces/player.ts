@@ -5,18 +5,19 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+import {Observable} from 'rxjs';
 
 /**
  * A shared interface which contains an animation player
  */
 export interface Player {
+  status: Observable<PlayState|string>;
   parent?: Player|null;
   state: PlayState;
   play(): void;
   pause(): void;
-  finish(): void;
-  destroy(): void;
-  addEventListener(state: PlayState|string, cb: (data?: any) => any): void;
+  finish(replacementPlayer?: Player|null): void;
+  destroy(replacementPlayer?: Player|null): void;
 }
 
 export const enum BindingType {
@@ -36,7 +37,7 @@ export interface BindingStore { setValue(prop: string, value: any): void; }
  */
 export interface PlayerFactoryBuildFn {
   (element: HTMLElement, type: BindingType, values: {[key: string]: any}, isFirstRender: boolean,
-   currentPlayer: Player|null): Player|null;
+   currentPlayer: Player|null): Player|undefined|null;
 }
 
 /**

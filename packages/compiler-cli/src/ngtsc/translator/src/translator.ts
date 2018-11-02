@@ -41,6 +41,8 @@ const BINARY_OPERATORS = new Map<BinaryOperator, ts.BinaryOperator>([
 const CORE_SUPPORTED_SYMBOLS = new Set<string>([
   'defineInjectable',
   'defineInjector',
+  'ɵdefinePipe',
+  'ɵPipeDefWithMeta',
   'ɵdefineNgModule',
   'inject',
   'ɵsetClassMetadata',

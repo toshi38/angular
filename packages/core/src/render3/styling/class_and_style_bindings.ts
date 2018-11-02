@@ -565,7 +565,7 @@ export function renderStyleAndClassBindings(
               wasQueued && totalPlayersQueued++;
             }
             if (oldPlayer) {
-              oldPlayer.destroy();
+              oldPlayer.destroy(player);
             }
           }
         } else if (oldPlayer) {
