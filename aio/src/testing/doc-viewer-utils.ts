@@ -81,10 +81,10 @@ export class TestModule { }
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export class ObservableWithSubscriptionSpies<T = void> extends Observable<T> {
-  unsubscribeSpies: jasmine.Spy[] = [];
-  subscribeSpy = spyOn(this, 'subscribe').and.callFake((...args: any[]) => {
+  unsubscribeSpies: jest.SpyInstance[] = [];
+  subscribeSpy = jest.spyOn(this, 'subscribe').mockImplementation((...args: any[]) => {
     const subscription = super.subscribe(...args);
-    const unsubscribeSpy = spyOn(subscription, 'unsubscribe').and.callThrough();
+    const unsubscribeSpy = jest.spyOn(subscription, 'unsubscribe');
     this.unsubscribeSpies.push(unsubscribeSpy);
     return subscription;
   });

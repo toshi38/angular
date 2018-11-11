@@ -8,8 +8,7 @@ export class MockLocationService {
   currentPath = this.currentUrl.pipe(map(url => url.match(/[^?#]*/)![0]));
   search = jest.fn().mockReturnValue({});
   setSearch = jest.fn();
-  go = jest.fn().and
-              .callFake((url: string) => this.urlSubject.next(url));
+  go = jest.fn((url: string) => this.urlSubject.next(url));
   goExternal = jest.fn();
   replace = jest.fn();
   handleAnchorClick = jest.fn()
