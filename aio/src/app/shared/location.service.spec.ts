@@ -309,7 +309,7 @@ describe('LocationService', () => {
       spyOn(service, 'goExternal');
       service.currentUrl.subscribe(url => localUrl = url);
       service.go('https://some/far/away/land');
-      expect(localUrl).toBeFalsy('should not set local url');
+      expect(localUrl).toBeFalsy();
     });
 
   });

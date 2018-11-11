@@ -65,7 +65,7 @@ describe('LiveExampleComponent', () => {
 
     it('should create LiveExampleComponent', () => {
       testComponent(() => {
-        expect(liveExampleComponent).toBeTruthy('LiveExampleComponent');
+        expect(liveExampleComponent).toBeTruthy();
       });
     });
 
@@ -207,7 +207,7 @@ describe('LiveExampleComponent', () => {
       setHostTemplate('<live-example embedded></live-example>');
       testComponent(() => {
         expect(liveExampleComponent.mode).toBe('embedded', 'component is embedded');
-        expect(getEmbeddedStackblitzComponent()).toBeTruthy('EmbeddedStackblitzComponent');
+        expect(getEmbeddedStackblitzComponent()).toBeTruthy();
       });
     });
 
