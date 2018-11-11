@@ -16,7 +16,7 @@ describe('Deployment service', () => {
       const injector = getInjector();
 
       const locationService: MockLocationService = injector.get(LocationService);
-      locationService.search.and.returnValue({ mode: 'bar' });
+      locationService.search.mockReturnValue({ mode: 'bar' });
 
       const deployment = injector.get(Deployment);
       expect(deployment.mode).toEqual('bar');

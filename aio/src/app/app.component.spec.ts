@@ -724,7 +724,7 @@ describe('AppComponent', () => {
 
         it('should clear "only" the search query param from the URL', () => {
           // Mock out the current state of the URL query params
-          locationService.search.and.returnValue({ a: 'some-A', b: 'some-B', search: 'some-C'});
+          locationService.search.mockReturnValue({ a: 'some-A', b: 'some-B', search: 'some-C'});
           // docViewer is a commonly-clicked, non-search element
           docViewer.click();
           // Check that the query params were updated correctly
@@ -1317,10 +1317,10 @@ function createTestingModule(initialUrl: string, mode: string = 'stable') {
 
 class TestElementsLoader {
   loadContainedCustomElements = jest.fn('loadContainedCustomElements')
-      .and.returnValue(of(undefined));
+      .mockReturnValue(of(undefined));
 
   loadCustomElement = jest.fn('loadCustomElement')
-      .and.returnValue(Promise.resolve());
+      .mockReturnValue(Promise.resolve());
 }
 
 class TestGaService {

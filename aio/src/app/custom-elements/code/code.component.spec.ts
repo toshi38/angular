@@ -246,7 +246,7 @@ describe('CodeComponent', () => {
       const snackBar: MatSnackBar = TestBed.get(MatSnackBar);
       const copierService: CopierService = TestBed.get(CopierService);
       spyOn(snackBar, 'open');
-      spyOn(copierService, 'copyText').and.returnValue(true);
+      spyOn(copierService, 'copyText').mockReturnValue(true);
       getButton().click();
       expect(snackBar.open).toHaveBeenCalledWith('Code Copied', '', { duration: 800 });
     });
@@ -256,7 +256,7 @@ describe('CodeComponent', () => {
       const copierService: CopierService = TestBed.get(CopierService);
       const logger: TestLogger = TestBed.get(Logger);
       spyOn(snackBar, 'open');
-      spyOn(copierService, 'copyText').and.returnValue(false);
+      spyOn(copierService, 'copyText').mockReturnValue(false);
       getButton().click();
       expect(snackBar.open).toHaveBeenCalledWith('Copy failed. Please try again!', '', { duration: 800 });
       expect(logger.error).toHaveBeenCalledTimes(1);

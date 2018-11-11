@@ -47,7 +47,7 @@ describe('DocViewerComponent', () => {
       parentFixture.detectChanges();
     };
 
-    beforeEach(() => renderSpy = spyOn(docViewer, 'render').and.returnValue([null]));
+    beforeEach(() => renderSpy = spyOn(docViewer, 'render').mockReturnValue([null]));
 
     it('should render the new document', () => {
       setCurrentDoc('foo', 'bar');
@@ -61,7 +61,7 @@ describe('DocViewerComponent', () => {
 
     it('should unsubscribe from the previous "render" observable upon new document', () => {
       const obs = new ObservableWithSubscriptionSpies();
-      renderSpy.and.returnValue(obs);
+      renderSpy.mockReturnValue(obs);
 
       setCurrentDoc('foo', 'bar');
       expect(obs.subscribeSpy).toHaveBeenCalledTimes(1);
@@ -87,7 +87,7 @@ describe('DocViewerComponent', () => {
 
   describe('#ngOnDestroy()', () => {
     it('should stop responding to document changes', () => {
-      const renderSpy = spyOn(docViewer, 'render').and.returnValue([undefined]);
+      const renderSpy = spyOn(docViewer, 'render').mockReturnValue([undefined]);
 
       expect(renderSpy).not.toHaveBeenCalled();
 
@@ -300,9 +300,9 @@ describe('DocViewerComponent', () => {
 
     beforeEach(() => {
       const elementsLoader = TestBed.get(ElementsLoader) as MockElementsLoader;
-      loadElementsSpy = elementsLoader.loadContainedCustomElements.and.returnValue(of(undefined));
+      loadElementsSpy = elementsLoader.loadContainedCustomElements.mockReturnValue(of(undefined));
       prepareTitleAndTocSpy = spyOn(docViewer, 'prepareTitleAndToc');
-      swapViewsSpy = spyOn(docViewer, 'swapViews').and.returnValue(of(undefined));
+      swapViewsSpy = spyOn(docViewer, 'swapViews').mockReturnValue(of(undefined));
     });
 
     it('should return an `Observable`', () => {
@@ -348,7 +348,7 @@ describe('DocViewerComponent', () => {
 
       it('should set the title and ToC (after the content has been set)', async () => {
         const addTitleAndTocSpy = jest.fn('addTitleAndToc');
-        prepareTitleAndTocSpy.and.returnValue(addTitleAndTocSpy);
+        prepareTitleAndTocSpy.mockReturnValue(addTitleAndTocSpy);
 
         addTitleAndTocSpy.and.callFake(() => expect(docViewerEl.textContent).toBe('Foo content'));
         await doRender('Foo content');
@@ -401,7 +401,7 @@ describe('DocViewerComponent', () => {
 
       it('should unsubscribe from the previous "embed" observable when unsubscribed from', () => {
         const obs = new ObservableWithSubscriptionSpies();
-        loadElementsSpy.and.returnValue(obs);
+        loadElementsSpy.mockReturnValue(obs);
 
         const renderObservable = docViewer.render({contents: 'Some content', id: 'foo'});
         const subscription = renderObservable.subscribe();
@@ -427,7 +427,7 @@ describe('DocViewerComponent', () => {
 
       it('should pass the `addTitleAndToc` callback', async () => {
         const addTitleAndTocSpy = jest.fn('addTitleAndToc');
-        prepareTitleAndTocSpy.and.returnValue(addTitleAndTocSpy);
+        prepareTitleAndTocSpy.mockReturnValue(addTitleAndTocSpy);
 
         await doRender('<div></div>');
 
@@ -436,7 +436,7 @@ describe('DocViewerComponent', () => {
 
       it('should unsubscribe from the previous "swap" observable when unsubscribed from', () => {
         const obs = new ObservableWithSubscriptionSpies();
-        swapViewsSpy.and.returnValue(obs);
+        swapViewsSpy.mockReturnValue(obs);
 
         const renderObservable = docViewer.render({contents: 'Hello, world!', id: 'foo'});
         const subscription = renderObservable.subscribe();

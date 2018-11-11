@@ -17,13 +17,13 @@ describe('ScrollService', () => {
 
   class MockDocument {
     body = new MockElement();
-    getElementById = jest.fn('Document getElementById').and.returnValue(topOfPageElem);
+    getElementById = jest.fn('Document getElementById').mockReturnValue(topOfPageElem);
     querySelector = jest.fn('Document querySelector');
   }
 
   class MockElement {
     getBoundingClientRect = jest.fn('Element getBoundingClientRect')
-                                   .and.returnValue({top: 0});
+                                   .mockReturnValue({top: 0});
     scrollIntoView = jest.fn('Element scrollIntoView');
   }
 
@@ -51,7 +51,7 @@ describe('ScrollService', () => {
     });
 
     it('should be calculated based on the top-bar\'s height + margin', () => {
-      (document.querySelector as jasmine.Spy).and.returnValue({clientHeight: 50});
+      (document.querySelector as jasmine.Spy).mockReturnValue({clientHeight: 50});
       expect(scrollService.topOffset).toBe(50 + topMargin);
     });
 
@@ -100,7 +100,7 @@ describe('ScrollService', () => {
     });
 
     it('should return `<body>` if unable to find the top-of-page element', () => {
-      (document.getElementById as jasmine.Spy).and.returnValue(null);
+      (document.getElementById as jasmine.Spy).mockReturnValue(null);
       expect(scrollService.topOfPageElement).toBe(document.body as any);
     });
   });
@@ -119,7 +119,7 @@ describe('ScrollService', () => {
 
     it('should not scroll if the hash does not match an element id', () => {
       location.hash = 'not-found';
-      document.getElementById.and.returnValue(null);
+      document.getElementById.mockReturnValue(null);
 
       scrollService.scroll();
       expect(document.getElementById).toHaveBeenCalledWith('not-found');
@@ -129,7 +129,7 @@ describe('ScrollService', () => {
     it('should scroll to the element whose id matches the hash', () => {
       const element = new MockElement();
       location.hash = 'some-id';
-      document.getElementById.and.returnValue(element);
+      document.getElementById.mockReturnValue(element);
 
       scrollService.scroll();
       expect(document.getElementById).toHaveBeenCalledWith('some-id');
@@ -140,7 +140,7 @@ describe('ScrollService', () => {
     it('should scroll to the element whose id matches the hash with encoded characters', () => {
       const element = new MockElement();
       location.hash = '%F0%9F%91%8D'; // 👍
-      document.getElementById.and.returnValue(element);
+      document.getElementById.mockReturnValue(element);
 
       scrollService.scroll();
       expect(document.getElementById).toHaveBeenCalledWith('👍');
@@ -162,12 +162,12 @@ describe('ScrollService', () => {
       const getBoundingClientRect = element.getBoundingClientRect as jasmine.Spy;
       const topOffset = scrollService.topOffset;
 
-      getBoundingClientRect.and.returnValue({top: topOffset + 100});
+      getBoundingClientRect.mockReturnValue({top: topOffset + 100});
       scrollService.scrollToElement(element);
       expect(element.scrollIntoView).toHaveBeenCalledTimes(1);
       expect(window.scrollBy).toHaveBeenCalledWith(0, 100);
 
-      getBoundingClientRect.and.returnValue({top: topOffset - 10});
+      getBoundingClientRect.mockReturnValue({top: topOffset - 10});
       scrollService.scrollToElement(element);
       expect(element.scrollIntoView).toHaveBeenCalledTimes(2);
       expect(window.scrollBy).toHaveBeenCalledWith(0, -10);

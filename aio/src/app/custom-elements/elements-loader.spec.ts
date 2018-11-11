@@ -264,7 +264,7 @@ class FakeModuleRef extends NgModuleRef<WithCustomElementComponent> {
   constructor(private modulePath) {
     super();
 
-    this.injector.get.and.returnValue(this.componentFactoryResolver);
+    this.injector.get.mockReturnValue(this.componentFactoryResolver);
   }
 
   destroy() {}
