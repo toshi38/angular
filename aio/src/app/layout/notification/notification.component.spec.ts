@@ -105,7 +105,7 @@ describe('NotificationComponent', () => {
 
   it('should not show the notification if the there is a "hide" flag in localStorage', () => {
     configTestingModule();
-    const getItemSpy: jasmine.Spy = TestBed.get(WindowToken).localStorage.getItem;
+    const getItemSpy: jest.SpyInstance = TestBed.get(WindowToken).localStorage.getItem;
     getItemSpy.mockReturnValue('hide');
     createComponent();
     expect(getItemSpy).toHaveBeenCalledWith('aio-notification/survey-january-2018');
@@ -131,5 +131,8 @@ class TestComponent {
 }
 
 class MockWindow {
-  localStorage = jasmine.createSpyObj('localStorage', ['getItem', 'setItem']);
+  localStorage = {
+      getItem: jest.fn(),
+      setItem: jest.fn(),
+  };
 }

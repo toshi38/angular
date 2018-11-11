@@ -5,15 +5,15 @@ import { LazyCustomElementComponent } from './lazy-custom-element.component';
 import { ElementsLoader } from './elements-loader';
 
 describe('LazyCustomElementComponent', () => {
-  let mockElementsLoader: jasmine.SpyObj<ElementsLoader>;
+  let mockElementsLoader: any;
   let mockLogger: MockLogger;
   let fixture: ComponentFixture<LazyCustomElementComponent>;
 
   beforeEach(() => {
-    mockElementsLoader = jasmine.createSpyObj<ElementsLoader>('ElementsLoader', [
-      'loadContainedCustomElements',
-      'loadCustomElement',
-    ]);
+    mockElementsLoader = {
+        loadContainedCustomElements: jest.fn(),
+        loadCustomElement: jest.fn(),
+    };
 
     const injector = TestBed.configureTestingModule({
       declarations: [ LazyCustomElementComponent ],
