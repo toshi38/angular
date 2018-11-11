@@ -165,7 +165,7 @@ describe('SelectComponent', () => {
     </aio-select>`
 })
 class HostComponent {
-  onChange = jasmine.createSpy('onChange');
+  onChange = jest.fn('onChange');
   options: Option[];
   selected: Option;
   label: string;

@@ -455,7 +455,7 @@ class HostEmbeddedTocComponent {}
 class HostNotEmbeddedTocComponent {}
 
 class TestScrollService {
-  scrollToTop = jasmine.createSpy('scrollToTop');
+  scrollToTop = jest.fn('scrollToTop');
 }
 
 class TestTocService {

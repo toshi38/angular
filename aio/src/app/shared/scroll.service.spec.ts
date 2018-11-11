@@ -17,14 +17,14 @@ describe('ScrollService', () => {
 
   class MockDocument {
     body = new MockElement();
-    getElementById = jasmine.createSpy('Document getElementById').and.returnValue(topOfPageElem);
-    querySelector = jasmine.createSpy('Document querySelector');
+    getElementById = jest.fn('Document getElementById').and.returnValue(topOfPageElem);
+    querySelector = jest.fn('Document querySelector');
   }
 
   class MockElement {
-    getBoundingClientRect = jasmine.createSpy('Element getBoundingClientRect')
+    getBoundingClientRect = jest.fn('Element getBoundingClientRect')
                                    .and.returnValue({top: 0});
-    scrollIntoView = jasmine.createSpy('Element scrollIntoView');
+    scrollIntoView = jest.fn('Element scrollIntoView');
   }
 
   beforeEach(() => {

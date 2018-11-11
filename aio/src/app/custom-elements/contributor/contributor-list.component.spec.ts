@@ -83,8 +83,8 @@ describe('ContributorListComponent', () => {
 
   class TestLocationService {
     searchResult: SearchResult = {};
-    search = jasmine.createSpy('search').and.callFake(() => this.searchResult);
-    setSearch = jasmine.createSpy('setSearch')
+    search = jest.fn('search').and.callFake(() => this.searchResult);
+    setSearch = jest.fn('setSearch')
       .and.callFake((label: string, result: SearchResult) => {
         this.searchResult = result;
       });

@@ -661,7 +661,7 @@ describe('BuildCreator', () => {
         lsResult('bar', 100),
         lsResult('baz', 200),
       ];
-      mockArray.sort = jasmine.createSpy('sort');
+      mockArray.sort = jest.fn('sort');
 
       shellLsSpy.and.callFake(() => Promise.resolve(mockArray));
       (bc as any).listShasByDate('input/dir').

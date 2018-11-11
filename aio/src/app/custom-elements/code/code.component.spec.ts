@@ -297,6 +297,6 @@ class HostComponent implements AfterViewInit {
 }
 
 class TestLogger {
-  log = jasmine.createSpy('log');
-  error = jasmine.createSpy('error');
+  log = jest.fn('log');
+  error = jest.fn('error');
 }

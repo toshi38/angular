@@ -9,8 +9,8 @@ import { MockLocationService } from 'testing/location.service';
   template: '<aio-search-box (onSearch)="searchHandler($event)" (onFocus)="focusHandler($event)"></aio-search-box>'
 })
 class HostComponent {
-  searchHandler = jasmine.createSpy('searchHandler');
-  focusHandler = jasmine.createSpy('focusHandler');
+  searchHandler = jest.fn('searchHandler');
+  focusHandler = jest.fn('focusHandler');
 }
 
 describe('SearchBoxComponent', () => {

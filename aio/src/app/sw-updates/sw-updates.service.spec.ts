@@ -205,7 +205,7 @@ class MockApplicationRef {
 }
 
 class MockLogger {
-  log = jasmine.createSpy('MockLogger.log');
+  log = jest.fn('MockLogger.log');
 }
 
 class MockSwUpdate {
@@ -215,10 +215,10 @@ class MockSwUpdate {
   available = this.$$availableSubj.asObservable();
   activated = this.$$activatedSubj.asObservable();
 
-  activateUpdate = jasmine.createSpy('MockSwUpdate.activateUpdate')
+  activateUpdate = jest.fn('MockSwUpdate.activateUpdate')
                           .and.callFake(() => Promise.resolve());
 
-  checkForUpdate = jasmine.createSpy('MockSwUpdate.checkForUpdate')
+  checkForUpdate = jest.fn('MockSwUpdate.checkForUpdate')
                           .and.callFake(() => Promise.resolve());
 
   constructor(public isEnabled: boolean) {}

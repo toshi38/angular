@@ -600,7 +600,7 @@ describe('LocationService', () => {
 /// Test Helpers ///
 class MockPlatformLocation {
   pathname = 'a/b/c';
-  replaceState = jasmine.createSpy('PlatformLocation.replaceState');
+  replaceState = jest.fn('PlatformLocation.replaceState');
 }
 
 class MockSwUpdatesService {
@@ -608,5 +608,5 @@ class MockSwUpdatesService {
 }
 
 class TestGaService {
-  locationChanged = jasmine.createSpy('locationChanged');
+  locationChanged = jest.fn('locationChanged');
 }

@@ -347,7 +347,7 @@ describe('DocViewerComponent', () => {
       });
 
       it('should set the title and ToC (after the content has been set)', async () => {
-        const addTitleAndTocSpy = jasmine.createSpy('addTitleAndToc');
+        const addTitleAndTocSpy = jest.fn('addTitleAndToc');
         prepareTitleAndTocSpy.and.returnValue(addTitleAndTocSpy);
 
         addTitleAndTocSpy.and.callFake(() => expect(docViewerEl.textContent).toBe('Foo content'));
@@ -426,7 +426,7 @@ describe('DocViewerComponent', () => {
       });
 
       it('should pass the `addTitleAndToc` callback', async () => {
-        const addTitleAndTocSpy = jasmine.createSpy('addTitleAndToc');
+        const addTitleAndTocSpy = jest.fn('addTitleAndToc');
         prepareTitleAndTocSpy.and.returnValue(addTitleAndTocSpy);
 
         await doRender('<div></div>');
@@ -534,7 +534,7 @@ describe('DocViewerComponent', () => {
 
     describe('(events)', () => {
       it('should emit `docReady` after loading elements', async () => {
-        const onDocReadySpy = jasmine.createSpy('onDocReady');
+        const onDocReadySpy = jest.fn('onDocReady');
         docViewer.docReady.subscribe(onDocReadySpy);
 
         await doRender('Some content');
@@ -544,7 +544,7 @@ describe('DocViewerComponent', () => {
       });
 
       it('should emit `docReady` before swapping views', async () => {
-        const onDocReadySpy = jasmine.createSpy('onDocReady');
+        const onDocReadySpy = jest.fn('onDocReady');
         docViewer.docReady.subscribe(onDocReadySpy);
 
         await doRender('Some content');
@@ -554,7 +554,7 @@ describe('DocViewerComponent', () => {
       });
 
       it('should emit `docRendered` after swapping views', async () => {
-        const onDocRenderedSpy = jasmine.createSpy('onDocRendered');
+        const onDocRenderedSpy = jest.fn('onDocRendered');
         docViewer.docRendered.subscribe(onDocRenderedSpy);
 
         await doRender('Some content');
@@ -616,7 +616,7 @@ describe('DocViewerComponent', () => {
             });
 
             it('should emit `docRemoved` after removing the leaving view', async () => {
-              const onDocRemovedSpy = jasmine.createSpy('onDocRemoved').and.callFake(() => {
+              const onDocRemovedSpy = jest.fn('onDocRemoved').and.callFake(() => {
                 expect(docViewerEl.contains(oldCurrViewContainer)).toBe(false);
                 expect(docViewerEl.contains(oldNextViewContainer)).toBe(false);
               });
@@ -634,7 +634,7 @@ describe('DocViewerComponent', () => {
             });
 
             it('should not emit `docRemoved` if the leaving view is already removed', async () => {
-              const onDocRemovedSpy = jasmine.createSpy('onDocRemoved');
+              const onDocRemovedSpy = jest.fn('onDocRemoved');
 
               docViewer.docRemoved.subscribe(onDocRemovedSpy);
               docViewerEl.removeChild(oldCurrViewContainer);
@@ -645,7 +645,7 @@ describe('DocViewerComponent', () => {
             });
 
             it('should emit `docInserted` after inserting the entering view', async () => {
-              const onDocInsertedSpy = jasmine.createSpy('onDocInserted').and.callFake(() => {
+              const onDocInsertedSpy = jest.fn('onDocInserted').and.callFake(() => {
                 expect(docViewerEl.contains(oldCurrViewContainer)).toBe(false);
                 expect(docViewerEl.contains(oldNextViewContainer)).toBe(true);
               });
@@ -663,11 +663,11 @@ describe('DocViewerComponent', () => {
             });
 
             it('should call the callback after inserting the entering view', async () => {
-              const onInsertedCb = jasmine.createSpy('onInsertedCb').and.callFake(() => {
+              const onInsertedCb = jest.fn('onInsertedCb').and.callFake(() => {
                 expect(docViewerEl.contains(oldCurrViewContainer)).toBe(false);
                 expect(docViewerEl.contains(oldNextViewContainer)).toBe(true);
               });
-              const onDocInsertedSpy = jasmine.createSpy('onDocInserted');
+              const onDocInsertedSpy = jest.fn('onDocInserted');
 
               docViewer.docInserted.subscribe(onDocInsertedSpy);
 
@@ -712,7 +712,7 @@ describe('DocViewerComponent', () => {
               });
             } else {
               it('should swap views synchronously when animations are disabled', () => {
-                const cbSpy = jasmine.createSpy('cb');
+                const cbSpy = jest.fn('cb');
 
                 docViewer.swapViews(cbSpy).subscribe();
 

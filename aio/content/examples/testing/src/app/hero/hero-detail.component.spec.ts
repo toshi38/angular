@@ -39,12 +39,12 @@ function overrideSetup() {
     testHero: Hero = {id: 42, name: 'Test Hero' };
 
     /* emit cloned test hero */
-    getHero = jasmine.createSpy('getHero').and.callFake(
+    getHero = jest.fn('getHero').and.callFake(
       () => asyncData(Object.assign({}, this.testHero))
     );
 
     /* emit clone of test hero, with changes merged in */
-    saveHero = jasmine.createSpy('saveHero').and.callFake(
+    saveHero = jest.fn('saveHero').and.callFake(
       (hero: Hero) => asyncData(Object.assign(this.testHero, hero))
     );
   }

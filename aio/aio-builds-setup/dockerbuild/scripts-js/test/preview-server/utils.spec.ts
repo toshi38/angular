@@ -9,8 +9,8 @@ describe('preview-server/utils', () => {
     let response: express.Response;
 
     beforeEach(() => {
-      endSpy = jasmine.createSpy('end');
-      statusSpy = jasmine.createSpy('status').and.callFake(() => response);
+      endSpy = jest.fn('end');
+      statusSpy = jest.fn('status').and.callFake(() => response);
       response = {status: statusSpy, end: endSpy} as any;
     });
 

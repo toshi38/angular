@@ -42,22 +42,22 @@ export class TestParentComponent {
 
 // Mock services.
 export class MockTitle {
-  setTitle = jasmine.createSpy('Title#reset');
+  setTitle = jest.fn();
 }
 
 export class MockMeta {
-  addTag = jasmine.createSpy('Meta#addTag');
-  removeTag = jasmine.createSpy('Meta#removeTag');
+  addTag = jest.fn();
+  removeTag = jest.fn();
 }
 
 export class MockTocService {
-  genToc = jasmine.createSpy('TocService#genToc');
-  reset = jasmine.createSpy('TocService#reset');
+  genToc = jest.fn();
+  reset = jest.fn();
 }
 
 export class MockElementsLoader {
   loadContainedCustomElements =
-      jasmine.createSpy('MockElementsLoader#loadContainedCustomElements');
+      jest.fn();
 }
 
 @NgModule({

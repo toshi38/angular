@@ -211,7 +211,7 @@ describe('ApiListComponent', () => {
 
 class TestLocationService {
   query: {[index: string]: string } = {};
-  setSearch = jasmine.createSpy('setSearch');
+  setSearch = jest.fn('setSearch');
   search() { return this.query; }
 }
 

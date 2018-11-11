@@ -12,7 +12,7 @@ describe('SearchService', () => {
   let mockWorker: WebWorkerClient;
 
   beforeEach(() => {
-    sendMessageSpy = jasmine.createSpy('sendMessage').and.returnValue(of({}));
+    sendMessageSpy = jest.fn('sendMessage').and.returnValue(of({}));
     mockWorker = { sendMessage: sendMessageSpy } as any;
     spyOn(WebWorkerClient, 'create').and.returnValue(mockWorker);
 

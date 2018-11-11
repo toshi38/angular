@@ -10,7 +10,7 @@ describe('GaService', () => {
   let mockWindow: any;
 
   beforeEach(() => {
-    gaSpy = jasmine.createSpy('ga');
+    gaSpy = jest.fn('ga');
     mockWindow = { ga: gaSpy };
     injector = ReflectiveInjector.resolveAndCreate([GaService, { provide: WindowToken, useFactory: () => mockWindow }]);
     gaService = injector.get(GaService);
@@ -82,7 +82,7 @@ describe('GaService', () => {
   });
 
   it('should support replacing the `window.ga` function', () => {
-    const gaSpy2 = jasmine.createSpy('new ga');
+    const gaSpy2 = jest.fn('new ga');
     mockWindow.ga = gaSpy2;
     gaSpy.calls.reset();
 

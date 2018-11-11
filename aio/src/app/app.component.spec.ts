@@ -1316,15 +1316,15 @@ function createTestingModule(initialUrl: string, mode: string = 'stable') {
 }
 
 class TestElementsLoader {
-  loadContainedCustomElements = jasmine.createSpy('loadContainedCustomElements')
+  loadContainedCustomElements = jest.fn('loadContainedCustomElements')
       .and.returnValue(of(undefined));
 
-  loadCustomElement = jasmine.createSpy('loadCustomElement')
+  loadCustomElement = jest.fn('loadCustomElement')
       .and.returnValue(Promise.resolve());
 }
 
 class TestGaService {
-  locationChanged = jasmine.createSpy('locationChanged');
+  locationChanged = jest.fn('locationChanged');
 }
 
 class TestHttpClient {

@@ -340,7 +340,7 @@ interface TestSafeHtml extends SafeHtml {
 }
 
 class TestDomSanitizer {
-  bypassSecurityTrustHtml = jasmine.createSpy('bypassSecurityTrustHtml')
+  bypassSecurityTrustHtml = jest.fn('bypassSecurityTrustHtml')
     .and.callFake((html: string) => {
       return {
         changingThisBreaksApplicationSecurity: html,
@@ -365,7 +365,7 @@ class MockScrollSpyService {
   spyOn(headings: HTMLHeadingElement[]): ScrollSpyInfo {
     return this.$$lastInfo = {
       active: new Subject<ScrollItem | null>(),
-      unspy: jasmine.createSpy('unspy'),
+      unspy: jest.fn('unspy'),
     };
   }
 }

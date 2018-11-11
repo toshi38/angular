@@ -11,7 +11,7 @@ describe('ReportingErrorHandler service', () => {
   let onerrorSpy: jasmine.Spy;
 
   beforeEach(() => {
-    onerrorSpy = jasmine.createSpy('onerror');
+    onerrorSpy = jest.fn('onerror');
     superHandler = spyOn(ErrorHandler.prototype, 'handleError');
 
     const injector = ReflectiveInjector.resolveAndCreate([
