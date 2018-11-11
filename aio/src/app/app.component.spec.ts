@@ -928,24 +928,23 @@ describe('AppComponent', () => {
     });
 
     describe('initial rendering', () => {
-      beforeEach(jasmine.clock().install);
-      afterEach(jasmine.clock().uninstall);
+      beforeEach(jest.useFakeTimers);
 
       it('should initially disable Angular animations until a document is rendered', () => {
         initializeTest(false);
-        jasmine.clock().tick(1);  // triggers the HTTP response for the document
+        jest.advanceTimersByTime(1);  // triggers the HTTP response for the document
 
         expect(component.isStarting).toBe(true);
         expect(fixture.debugElement.properties['@.disabled']).toBe(true);
 
         triggerDocViewerEvent('docInserted');
-        jasmine.clock().tick(startedDelay);
+        jest.advanceTimersByTime(startedDelay);
         fixture.detectChanges();
         expect(component.isStarting).toBe(true);
         expect(fixture.debugElement.properties['@.disabled']).toBe(true);
 
         triggerDocViewerEvent('docRendered');
-        jasmine.clock().tick(startedDelay);
+        jest.advanceTimersByTime(startedDelay);
         fixture.detectChanges();
         expect(component.isStarting).toBe(false);
         expect(fixture.debugElement.properties['@.disabled']).toBe(false);
@@ -953,7 +952,7 @@ describe('AppComponent', () => {
 
       it('should initially add the starting class until a document is rendered', () => {
         initializeTest(false);
-        jasmine.clock().tick(1);  // triggers the HTTP response for the document
+        jest.advanceTimersByTime(1);  // triggers the HTTP response for the document
         const sidenavContainer = fixture.debugElement.query(By.css('mat-sidenav-container')).nativeElement;
 
         expect(component.isStarting).toBe(true);
@@ -961,14 +960,14 @@ describe('AppComponent', () => {
         expect(sidenavContainer.classList.contains('starting')).toBe(true);
 
         triggerDocViewerEvent('docInserted');
-        jasmine.clock().tick(startedDelay);
+        jest.advanceTimersByTime(startedDelay);
         fixture.detectChanges();
         expect(component.isStarting).toBe(true);
         expect(hamburger.classList.contains('starting')).toBe(true);
         expect(sidenavContainer.classList.contains('starting')).toBe(true);
 
         triggerDocViewerEvent('docRendered');
-        jasmine.clock().tick(startedDelay);
+        jest.advanceTimersByTime(startedDelay);
         fixture.detectChanges();
         expect(component.isStarting).toBe(false);
         expect(hamburger.classList.contains('starting')).toBe(false);
@@ -977,19 +976,19 @@ describe('AppComponent', () => {
 
       it('should initially disable animations on the DocViewer for the first rendering', () => {
         initializeTest(false);
-        jasmine.clock().tick(1);  // triggers the HTTP response for the document
+        jest.advanceTimersByTime(1);  // triggers the HTTP response for the document
 
         expect(component.isStarting).toBe(true);
         expect(docViewer.classList.contains('no-animations')).toBe(true);
 
         triggerDocViewerEvent('docInserted');
-        jasmine.clock().tick(startedDelay);
+        jest.advanceTimersByTime(startedDelay);
         fixture.detectChanges();
         expect(component.isStarting).toBe(true);
         expect(docViewer.classList.contains('no-animations')).toBe(true);
 
         triggerDocViewerEvent('docRendered');
-        jasmine.clock().tick(startedDelay);
+        jest.advanceTimersByTime(startedDelay);
         fixture.detectChanges();
         expect(component.isStarting).toBe(false);
         expect(docViewer.classList.contains('no-animations')).toBe(false);
@@ -997,12 +996,11 @@ describe('AppComponent', () => {
     });
 
     describe('subsequent rendering', () => {
-      beforeEach(jasmine.clock().install);
-      afterEach(jasmine.clock().uninstall);
+      beforeEach(jest.useFakeTimers);
 
       it('should set the transitioning class on `.app-toolbar` while a document is being rendered', () => {
         initializeTest(false);
-        jasmine.clock().tick(1);  // triggers the HTTP response for the document
+        jest.advanceTimersByTime(1);  // triggers the HTTP response for the document
         const toolbar = fixture.debugElement.query(By.css('.app-toolbar'));
 
         // Initially, `isTransitoning` is true.
@@ -1028,26 +1026,26 @@ describe('AppComponent', () => {
 
       it('should update the sidenav state as soon as a new document is inserted (but not before)', () => {
         initializeTest(false);
-        jasmine.clock().tick(1);  // triggers the HTTP response for the document
-        jasmine.clock().tick(0);  // calls `updateSideNav()` for initial rendering
+        jest.advanceTimersByTime(1);  // triggers the HTTP response for the document
+        jest.advanceTimersByTime(0);  // calls `updateSideNav()` for initial rendering
         const updateSideNavSpy = spyOn(component, 'updateSideNav');
 
         triggerDocViewerEvent('docReady');
-        jasmine.clock().tick(0);
+        jest.advanceTimersByTime(0);
         expect(updateSideNavSpy).not.toHaveBeenCalled();
 
         triggerDocViewerEvent('docInserted');
-        jasmine.clock().tick(0);
+        jest.advanceTimersByTime(0);
         expect(updateSideNavSpy).toHaveBeenCalledTimes(1);
 
         updateSideNavSpy.calls.reset();
 
         triggerDocViewerEvent('docReady');
-        jasmine.clock().tick(0);
+        jest.advanceTimersByTime(0);
         expect(updateSideNavSpy).not.toHaveBeenCalled();
 
         triggerDocViewerEvent('docInserted');
-        jasmine.clock().tick(0);
+        jest.advanceTimersByTime(0);
         expect(updateSideNavSpy).toHaveBeenCalledTimes(1);
       });
     });
@@ -1055,14 +1053,13 @@ describe('AppComponent', () => {
     describe('pageId', () => {
       const navigateTo = (path: string) => {
         locationService.go(path);
-        jasmine.clock().tick(1);  // triggers the HTTP response for the document
+        jest.advanceTimersByTime(1);  // triggers the HTTP response for the document
         triggerDocViewerEvent('docInserted');
-        jasmine.clock().tick(0);  // triggers `updateHostClasses()`
+        jest.advanceTimersByTime(0);  // triggers `updateHostClasses()`
         fixture.detectChanges();
       };
 
-      beforeEach(jasmine.clock().install);
-      afterEach(jasmine.clock().uninstall);
+      beforeEach(jest.useFakeTimers);
 
       it('should set the id of the doc viewer container based on the current doc', () => {
         initializeTest(false);
@@ -1095,9 +1092,9 @@ describe('AppComponent', () => {
 
     describe('hostClasses', () => {
       const triggerUpdateHostClasses = () => {
-        jasmine.clock().tick(1);  // triggers the HTTP response for document
+        jest.advanceTimersByTime(1);  // triggers the HTTP response for document
         triggerDocViewerEvent('docInserted');
-        jasmine.clock().tick(0);  // triggers `updateHostClasses()`
+        jest.advanceTimersByTime(0);  // triggers `updateHostClasses()`
         fixture.detectChanges();
       };
       const navigateTo = (path: string) => {
@@ -1105,8 +1102,7 @@ describe('AppComponent', () => {
         triggerUpdateHostClasses();
       };
 
-      beforeEach(jasmine.clock().install);
-      afterEach(jasmine.clock().uninstall);
+      beforeEach(jest.useFakeTimers);
 
       it('should set the css classes of the host container based on the current doc and navigation view', () => {
         initializeTest(false);
@@ -1147,7 +1143,7 @@ describe('AppComponent', () => {
           const promise = new Promise(resolve => sidenav.openedChange.pipe(first()).subscribe(resolve));
 
           await Promise.resolve();  // Wait for `MatSidenav.openedChange.emit()` to be called.
-          jasmine.clock().tick(0);  // Notify `MatSidenav.openedChange` observers.
+          jest.advanceTimersByTime(0);  // Notify `MatSidenav.openedChange` observers.
                                     // (It is an async `EventEmitter`, thus uses `setTimeout()`.)
 
           await promise;
