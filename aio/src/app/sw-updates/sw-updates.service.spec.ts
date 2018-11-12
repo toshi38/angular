@@ -57,7 +57,7 @@ describe('SwUpdatesService', () => {
 
   it('should periodically check for updates', fakeAsync(run(() => {
     appRef.isStable.next(true);
-    swu.checkForUpdate.calls.reset();
+    swu.checkForUpdate.mockClear();
 
     tick(checkInterval);
     expect(swu.checkForUpdate).toHaveBeenCalledTimes(1);
@@ -83,7 +83,7 @@ describe('SwUpdatesService', () => {
 
   it('should keep periodically checking for updates even after one is available/activated', fakeAsync(run(() => {
     appRef.isStable.next(true);
-    swu.checkForUpdate.calls.reset();
+    swu.checkForUpdate.mockClear();
 
     tick(checkInterval);
     expect(swu.checkForUpdate).toHaveBeenCalledTimes(1);
@@ -153,7 +153,7 @@ describe('SwUpdatesService', () => {
       expect(swu.checkForUpdate).toHaveBeenCalled();
 
       service.ngOnDestroy();
-      swu.checkForUpdate.calls.reset();
+      swu.checkForUpdate.mockClear();
 
       tick(checkInterval);
       tick(checkInterval);
@@ -166,7 +166,7 @@ describe('SwUpdatesService', () => {
       expect(swu.checkForUpdate).toHaveBeenCalled();
 
       service.ngOnDestroy();
-      swu.checkForUpdate.calls.reset();
+      swu.checkForUpdate.mockClear();
 
       swu.$$availableSubj.next({available: {hash: 'foo'}});
       swu.$$activatedSubj.next({current: {hash: 'baz'}});

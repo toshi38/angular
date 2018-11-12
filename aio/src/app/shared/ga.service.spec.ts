@@ -42,7 +42,7 @@ describe('GaService', () => {
 
     it('should not send twice with same URL, back-to-back', () => {
       gaService.sendPage('testUrl');
-      gaSpy.calls.reset();
+      gaSpy.mockClear();
       gaService.sendPage('testUrl');
       expect(gaSpy).not.toHaveBeenCalled();
     });
@@ -53,7 +53,7 @@ describe('GaService', () => {
       gaService.sendPage('testUrl#one');
       expect(gaSpy).toHaveBeenCalledWith('set', 'page', '/testUrl#one');
       expect(gaSpy).toHaveBeenCalledWith('send', 'pageview');
-      gaSpy.calls.reset();
+      gaSpy.mockClear();
       gaService.sendPage('testUrl#two');
       expect(gaSpy).toHaveBeenCalledWith('set', 'page', '/testUrl#two');
       expect(gaSpy).toHaveBeenCalledWith('send', 'pageview');
@@ -63,11 +63,11 @@ describe('GaService', () => {
       gaService.sendPage('testUrl');
       expect(gaSpy).toHaveBeenCalledWith('set', 'page', '/testUrl');
       expect(gaSpy).toHaveBeenCalledWith('send', 'pageview');
-      gaSpy.calls.reset();
+      gaSpy.mockClear();
       gaService.sendPage('testUrl2');
       expect(gaSpy).toHaveBeenCalledWith('set', 'page', '/testUrl2');
       expect(gaSpy).toHaveBeenCalledWith('send', 'pageview');
-      gaSpy.calls.reset();
+      gaSpy.mockClear();
       gaService.sendPage('testUrl');
       expect(gaSpy).toHaveBeenCalledWith('set', 'page', '/testUrl');
       expect(gaSpy).toHaveBeenCalledWith('send', 'pageview');
@@ -84,7 +84,7 @@ describe('GaService', () => {
   it('should support replacing the `window.ga` function', () => {
     const gaSpy2 = jest.fn();
     mockWindow.ga = gaSpy2;
-    gaSpy.calls.reset();
+    gaSpy.mockClear();
 
     gaService.sendPage('testUrl');
     expect(gaSpy).not.toHaveBeenCalled();

@@ -57,7 +57,7 @@ describe('ScrollService', () => {
 
     it('should only query for the top-bar once', () => {
       expect(scrollService.topOffset).toBe(topMargin);
-      (document.querySelector as jasmine.Spy).calls.reset();
+      (document.querySelector as jest.SpyInstance).mockClear();
 
       expect(scrollService.topOffset).toBe(topMargin);
       expect(document.querySelector).not.toHaveBeenCalled();
@@ -70,7 +70,7 @@ describe('ScrollService', () => {
       expect(scrollService.topOffset).toBe(50 + topMargin);
       expect(document.querySelector).toHaveBeenCalled();
 
-      (document.querySelector as jasmine.Spy).calls.reset();
+      (document.querySelector as jest.SpyInstance).mockClear();
       clientHeight = 100;
 
       expect(scrollService.topOffset).toBe(50 + topMargin);
@@ -93,7 +93,7 @@ describe('ScrollService', () => {
 
     it('should only query for the top-of-page element once', () => {
       expect(scrollService.topOfPageElement).toBe(topOfPageElem);
-      (document.getElementById as jasmine.Spy).calls.reset();
+      (document.getElementById as jest.SpyInstance).mockClear();
 
       expect(scrollService.topOfPageElement).toBe(topOfPageElem);
       expect(document.getElementById).not.toHaveBeenCalled();
@@ -181,7 +181,7 @@ describe('ScrollService', () => {
 
       expect(element.scrollIntoView).toHaveBeenCalled();
       expect(window.scrollBy).toHaveBeenCalledWith(0, -scrollService.topOffset);
-      (window.scrollBy as jasmine.Spy).calls.reset();
+      (window.scrollBy as jest.SpyInstance).mockClear();
 
       (window as any).pageYOffset = 15;
       scrollService.scrollToElement(element);

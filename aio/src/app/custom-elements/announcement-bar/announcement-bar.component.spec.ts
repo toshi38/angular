@@ -67,7 +67,7 @@ describe('AnnouncementBarComponent', () => {
       request.flush('some random response');
       expect(component.announcement).toBeUndefined();
       expect(mockLogger.output.error).toEqual([
-        [jasmine.any(Error)]
+        [expect.any(Error)]
       ]);
       expect(mockLogger.output.error[0][0].message).toMatch(/^generated\/announcements\.json contains invalid data:/);
     });
@@ -78,7 +78,7 @@ describe('AnnouncementBarComponent', () => {
       request.error(new ErrorEvent('404'));
       expect(component.announcement).toBeUndefined();
       expect(mockLogger.output.error).toEqual([
-        [jasmine.any(Error)]
+        [expect.any(Error)]
       ]);
       expect(mockLogger.output.error[0][0].message).toMatch(/^generated\/announcements\.json request failed:/);
     });

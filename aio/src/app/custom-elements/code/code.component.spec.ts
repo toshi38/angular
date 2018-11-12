@@ -238,7 +238,7 @@ describe('CodeComponent', () => {
         expect(actualCode).toBe(expectedCode, `when linenums=${linenums}`);
         expect(actualCode.match(/\r?\n/g).length).toBe(5);
 
-        spy.calls.reset();
+        spy.mockClear();
       });
     });
 

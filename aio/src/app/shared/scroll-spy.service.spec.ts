@@ -311,7 +311,7 @@ describe('ScrollSpyService', () => {
       expect(onResizeSpy).not.toHaveBeenCalled();
 
       scrollSpyService.spyOn([]);
-      onResizeSpy.calls.reset();
+      onResizeSpy.mockClear();
 
       window.dispatchEvent(new Event('resize'));
       expect(onResizeSpy).not.toHaveBeenCalled();
@@ -323,21 +323,21 @@ describe('ScrollSpyService', () => {
     it('should be unsubscribed from when the last group of elements is removed', fakeAsync(() => {
       const info1 = scrollSpyService.spyOn([]);
       const info2 = scrollSpyService.spyOn([]);
-      onResizeSpy.calls.reset();
+      onResizeSpy.mockClear();
 
       window.dispatchEvent(new Event('resize'));
       tick(RESIZE_EVENT_DELAY);
       expect(onResizeSpy).toHaveBeenCalled();
 
       info1.unspy();
-      onResizeSpy.calls.reset();
+      onResizeSpy.mockClear();
 
       window.dispatchEvent(new Event('resize'));
       tick(RESIZE_EVENT_DELAY);
       expect(onResizeSpy).toHaveBeenCalled();
 
       info2.unspy();
-      onResizeSpy.calls.reset();
+      onResizeSpy.mockClear();
 
       window.dispatchEvent(new Event('resize'));
       tick(RESIZE_EVENT_DELAY);
@@ -346,7 +346,7 @@ describe('ScrollSpyService', () => {
 
     it(`should only fire every ${RESIZE_EVENT_DELAY}ms`, fakeAsync(() => {
       scrollSpyService.spyOn([]);
-      onResizeSpy.calls.reset();
+      onResizeSpy.mockClear();
 
       window.dispatchEvent(new Event('resize'));
       tick(RESIZE_EVENT_DELAY - 2);
@@ -360,7 +360,7 @@ describe('ScrollSpyService', () => {
       tick(1);
       expect(onResizeSpy).toHaveBeenCalledTimes(1);
 
-      onResizeSpy.calls.reset();
+      onResizeSpy.mockClear();
       tick(RESIZE_EVENT_DELAY / 2);
 
       window.dispatchEvent(new Event('resize'));
@@ -408,14 +408,14 @@ describe('ScrollSpyService', () => {
       expect(onScrollSpy).toHaveBeenCalled();
 
       info1.unspy();
-      onScrollSpy.calls.reset();
+      onScrollSpy.mockClear();
 
       window.dispatchEvent(new Event('scroll'));
       tick(SCROLL_EVENT_DELAY);
       expect(onScrollSpy).toHaveBeenCalled();
 
       info2.unspy();
-      onScrollSpy.calls.reset();
+      onScrollSpy.mockClear();
 
       window.dispatchEvent(new Event('scroll'));
       tick(SCROLL_EVENT_DELAY);
@@ -437,7 +437,7 @@ describe('ScrollSpyService', () => {
       tick(1);
       expect(onScrollSpy).toHaveBeenCalledTimes(1);
 
-      onScrollSpy.calls.reset();
+      onScrollSpy.mockClear();
       tick(SCROLL_EVENT_DELAY / 2);
 
       window.dispatchEvent(new Event('scroll'));
@@ -505,7 +505,7 @@ describe('ScrollSpyService', () => {
       calibrateSpies.forEach(spy => expect(spy).not.toHaveBeenCalled());
       onScrollSpies.forEach(spy => expect(spy).toHaveBeenCalled());
 
-      onScrollSpies.forEach(spy => spy.calls.reset());
+      onScrollSpies.forEach(spy => spy.mockClear());
       body.scrollHeight = 100;
 
       // Viewport changed...

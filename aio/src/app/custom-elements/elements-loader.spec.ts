@@ -170,14 +170,14 @@ describe('ElementsLoader', () => {
       flushMicrotasks();
       expect(definedSpy).toHaveBeenCalledTimes(1);
 
-      definedSpy.calls.reset();
+      definedSpy.mockClear();
 
       // While loading/registering is still in progress:
       elementsLoader.loadCustomElement('element-a-selector');
       flushMicrotasks();
       expect(definedSpy).not.toHaveBeenCalled();
 
-      definedSpy.calls.reset();
+      definedSpy.mockClear();
       whenDefinedDeferreds[0].resolve();
 
       // Once loading/registering is already completed:
@@ -205,7 +205,7 @@ describe('ElementsLoader', () => {
         flushMicrotasks();
         expect(definedSpy).toHaveBeenCalledTimes(1);
 
-        definedSpy.calls.reset();
+        definedSpy.mockClear();
 
         // While loading/registering is still in progress:
         elementsLoader.loadCustomElement('element-a-selector').catch(() => undefined);
