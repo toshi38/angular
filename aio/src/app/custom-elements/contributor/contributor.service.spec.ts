@@ -59,8 +59,6 @@ describe('ContributorService', () => {
       expect(actualAngularNames).toEqual(expectedAngularNames);
     });
   });
-
-  it('should do WHAT(?) if the request fails', () => {});
 });
 
 function getTestContribs() {

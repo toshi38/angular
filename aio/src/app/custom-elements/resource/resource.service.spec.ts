@@ -81,8 +81,6 @@ describe('ResourceService', () => {
       expect(actualIds).toBe('a-a-a,s-s-s,z-z-z');
     });
   });
-
-  it('should do WHAT(?) if the request fails');
 });
 
 function getTestResources() {
