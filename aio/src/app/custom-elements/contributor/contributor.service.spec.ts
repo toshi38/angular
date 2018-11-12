@@ -60,7 +60,7 @@ describe('ContributorService', () => {
     });
   });
 
-  it('should do WHAT(?) if the request fails');
+  it('should do WHAT(?) if the request fails', () => {});
 });
 
 function getTestContribs() {
