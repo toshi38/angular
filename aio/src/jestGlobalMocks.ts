@@ -1,3 +1,5 @@
+import './assets/js/prettify.js' // will add window.prettyPrintOne
+
 global['CSS'] = null;
 
 const mock = () => {
