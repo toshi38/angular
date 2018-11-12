@@ -146,7 +146,7 @@ describe('ElementsLoader', () => {
       flushMicrotasks();
 
       expect(definedSpy).toHaveBeenCalledTimes(1);
-      expect(definedSpy).toHaveBeenCalledWith('element-a-selector', jasmine.any(Function));
+      expect(definedSpy).toHaveBeenCalledWith('element-a-selector', expect.any(Function));
 
       // Verify the right component was loaded/registered.
       const Ctor = definedSpy.mock.calls[0][1];

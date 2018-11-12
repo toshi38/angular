@@ -23,7 +23,7 @@ describe('ReportingErrorHandler service', () => {
 
   it('should be registered on the AppModule', () => {
     handler = TestBed.configureTestingModule({ imports: [AppModule] }).get(ErrorHandler);
-    expect(handler).toEqual(jasmine.any(ReportingErrorHandler));
+    expect(handler).toEqual(expect.any(ReportingErrorHandler));
   });
 
   describe('handleError', () => {

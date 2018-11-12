@@ -29,7 +29,7 @@ describe('SearchService', () => {
       expect(WebWorkerClient.create).not.toHaveBeenCalled();
       expect(mockWorker.sendMessage).not.toHaveBeenCalled();
       tick(100);
-      expect(WebWorkerClient.create).toHaveBeenCalledWith('some/url', jasmine.any(NgZone));
+      expect(WebWorkerClient.create).toHaveBeenCalledWith('some/url', expect.any(NgZone));
       expect(mockWorker.sendMessage).toHaveBeenCalledWith('load-index');
     }));
   });

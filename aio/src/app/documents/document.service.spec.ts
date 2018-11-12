@@ -75,7 +75,7 @@ describe('DocumentService', () => {
       // Initial request return 404.
       httpMock.expectOne({}).flush(null, {status: 404, statusText: 'NOT FOUND'});
       expect(logger.output.error).toEqual([
-        [jasmine.any(Error)]
+        [expect.any(Error)]
       ]);
       expect(logger.output.error[0][0].message).toEqual(`Document file not found at 'missing/doc'`);
 
@@ -114,18 +114,18 @@ describe('DocumentService', () => {
       httpMock.expectOne({}).flush(null, {status: 500, statusText: 'Server Error'});
       expect(latestDocument.id).toEqual(FETCHING_ERROR_ID);
       expect(logger.output.error).toEqual([
-        [jasmine.any(Error)]
+        [expect.any(Error)]
       ]);
       expect(logger.output.error[0][0].message)
           .toEqual(`Error fetching document 'initial/doc': (Http failure response for generated/docs/initial/doc.json: 500 Server Error)`);
 
       locationService.go('new/doc');
       httpMock.expectOne({}).flush(doc1);
-      expect(latestDocument).toEqual(jasmine.objectContaining(doc1));
+      expect(latestDocument).toEqual(expect.objectContaining(doc1));
 
       locationService.go('initial/doc');
       httpMock.expectOne({}).flush(doc2);
-      expect(latestDocument).toEqual(jasmine.objectContaining(doc2));
+      expect(latestDocument).toEqual(expect.objectContaining(doc2));
     });
 
     it('should not crash the app if the response is invalid JSON', () => {
@@ -140,7 +140,7 @@ describe('DocumentService', () => {
 
       locationService.go('new/doc');
       httpMock.expectOne({}).flush(doc1);
-      expect(latestDocument).toEqual(jasmine.objectContaining(doc1));
+      expect(latestDocument).toEqual(expect.objectContaining(doc1));
     });
 
     it('should not make a request to the server if the doc is in the cache already', () => {
@@ -153,27 +153,27 @@ describe('DocumentService', () => {
 
       subscription = docService.currentDocument.subscribe(doc => latestDocument = doc);
       httpMock.expectOne({}).flush(doc0);
-      expect(latestDocument).toEqual(jasmine.objectContaining(doc0));
+      expect(latestDocument).toEqual(expect.objectContaining(doc0));
       subscription.unsubscribe();
 
       subscription = docService.currentDocument.subscribe(doc => latestDocument = doc);
       locationService.go('url/1');
       httpMock.expectOne({}).flush(doc1);
-      expect(latestDocument).toEqual(jasmine.objectContaining(doc1));
+      expect(latestDocument).toEqual(expect.objectContaining(doc1));
       subscription.unsubscribe();
 
       // This should not trigger a new request.
       subscription = docService.currentDocument.subscribe(doc => latestDocument = doc);
       locationService.go('url/0');
       httpMock.expectNone({});
-      expect(latestDocument).toEqual(jasmine.objectContaining(doc0));
+      expect(latestDocument).toEqual(expect.objectContaining(doc0));
       subscription.unsubscribe();
 
       // This should not trigger a new request.
       subscription = docService.currentDocument.subscribe(doc => latestDocument = doc);
       locationService.go('url/1');
       httpMock.expectNone({});
-      expect(latestDocument).toEqual(jasmine.objectContaining(doc1));
+      expect(latestDocument).toEqual(expect.objectContaining(doc1));
       subscription.unsubscribe();
     });
   });
