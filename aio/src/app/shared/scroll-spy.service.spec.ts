@@ -39,22 +39,19 @@ describe('ScrollSpiedElement', () => {
 describe('ScrollSpiedElementGroup', () => {
   describe('#calibrate()', () => {
     it('should calculate `top` for all spied elements', () => {
-      const spy = spyOn(ScrollSpiedElement.prototype, 'calculateTop').mockReturnValue(0);
+      const spy = jest.spyOn(ScrollSpiedElement.prototype, 'calculateTop').mockReturnValue(0);
       const elems = [{}, {}, {}] as Element[];
       const group = new ScrollSpiedElementGroup(elems);
 
       expect(spy).not.toHaveBeenCalled();
 
       group.calibrate(20, 10);
-      const callInfo = spy.calls.all();
+      const callInfo = spy.mock.calls;
 
       expect(spy).toHaveBeenCalledTimes(3);
-      expect(callInfo[0].object.index).toBe(0);
-      expect(callInfo[1].object.index).toBe(1);
-      expect(callInfo[2].object.index).toBe(2);
-      expect(callInfo[0].args).toEqual([20, 10]);
-      expect(callInfo[1].args).toEqual([20, 10]);
-      expect(callInfo[2].args).toEqual([20, 10]);
+      expect(callInfo[0]).toEqual([20, 10]);
+      expect(callInfo[1]).toEqual([20, 10]);
+      expect(callInfo[2]).toEqual([20, 10]);
     });
   });
 
@@ -67,7 +64,7 @@ describe('ScrollSpiedElementGroup', () => {
     beforeEach(() => {
       const tops = [50, 150, 100];
 
-      spyOn(ScrollSpiedElement.prototype, 'calculateTop').and.callFake(
+      jest.spyOn(ScrollSpiedElement.prototype, 'calculateTop').mockImplementation(
         function(this: ScrollSpiedElement, scrollTop: number, topOffset: number) {
         this.top = tops[this.index];
       });
@@ -177,8 +174,8 @@ describe('ScrollSpyService', () => {
     });
 
     it('should initialize the newly created `ScrollSpiedElementGroup`', () => {
-      const calibrateSpy = spyOn(ScrollSpiedElementGroup.prototype, 'calibrate');
-      const onScrollSpy = spyOn(ScrollSpiedElementGroup.prototype, 'onScroll');
+      const calibrateSpy = jest.spyOn(ScrollSpiedElementGroup.prototype, 'calibrate').mockImplementation(jest.fn);
+      const onScrollSpy = jest.spyOn(ScrollSpiedElementGroup.prototype, 'onScroll').mockImplementation(jest.fn);
 
       scrollSpyService.spyOn([]);
       expect(calibrateSpy).toHaveBeenCalledTimes(1);
@@ -192,10 +189,10 @@ describe('ScrollSpyService', () => {
     it('should call `onResize()` if it is the first `ScrollSpiedElementGroup`', () => {
       const actions: string[] = [];
 
-      const onResizeSpy = spyOn(ScrollSpyService.prototype as any, 'onResize')
-                          .and.callFake(() => actions.push('onResize'));
-      const calibrateSpy = spyOn(ScrollSpiedElementGroup.prototype, 'calibrate')
-                           .and.callFake(() => actions.push('calibrate'));
+      const onResizeSpy = jest.spyOn(ScrollSpyService.prototype as any, 'onResize')
+          .mockImplementation(() => actions.push('onResize'));
+      const calibrateSpy = jest.spyOn(ScrollSpiedElementGroup.prototype, 'calibrate')
+                           .mockImplementation(() => actions.push('calibrate'));
 
       expect(onResizeSpy).not.toHaveBeenCalled();
       expect(calibrateSpy).not.toHaveBeenCalled();
@@ -299,10 +296,10 @@ describe('ScrollSpyService', () => {
 
   describe('window resize events', () => {
     const RESIZE_EVENT_DELAY = 300;
-    let onResizeSpy: jasmine.Spy;
+    let onResizeSpy: jest.SpyInstance;
 
     beforeEach(() => {
-      onResizeSpy = spyOn(ScrollSpyService.prototype as any, 'onResize');
+      onResizeSpy = jest.spyOn(ScrollSpyService.prototype as any, 'onResize').mockImplementation(jest.fn);
     });
 
 
@@ -379,10 +376,10 @@ describe('ScrollSpyService', () => {
 
   describe('window scroll events', () => {
     const SCROLL_EVENT_DELAY = 10;
-    let onScrollSpy: jasmine.Spy;
+    let onScrollSpy: jest.SpyInstance;
 
     beforeEach(() => {
-      onScrollSpy = spyOn(ScrollSpyService.prototype as any, 'onScroll');
+      onScrollSpy = jest.spyOn(ScrollSpyService.prototype as any, 'onScroll').mockImplementation(jest.fn);
     });
 
 
@@ -461,7 +458,7 @@ describe('ScrollSpyService', () => {
       scrollSpyService.spyOn([]);
 
       const spiedElemGroups: ScrollSpiedElementGroup[] = (scrollSpyService as any).spiedElementGroups;
-      const calibrateSpies = spiedElemGroups.map(group => spyOn(group, 'calibrate'));
+      const calibrateSpies = spiedElemGroups.map(group => jest.spyOn(group, 'calibrate').mockImplementation(jest.fn));
 
       calibrateSpies.forEach(spy => expect(spy).not.toHaveBeenCalled());
 
@@ -477,7 +474,7 @@ describe('ScrollSpyService', () => {
       scrollSpyService.spyOn([]);
 
       const spiedElemGroups: ScrollSpiedElementGroup[] = (scrollSpyService as any).spiedElementGroups;
-      const onScrollSpies = spiedElemGroups.map(group => spyOn(group, 'onScroll'));
+      const onScrollSpies = spiedElemGroups.map(group => jest.spyOn(group, 'onScroll').mockImplementation(jest.fn));
 
       onScrollSpies.forEach(spy => expect(spy).not.toHaveBeenCalled());
 
@@ -493,9 +490,9 @@ describe('ScrollSpyService', () => {
       scrollSpyService.spyOn([]);
 
       const spiedElemGroups: ScrollSpiedElementGroup[] = (scrollSpyService as any).spiedElementGroups;
-      const onScrollSpies = spiedElemGroups.map(group => spyOn(group, 'onScroll'));
-      const calibrateSpies = spiedElemGroups.map((group, i) => spyOn(group, 'calibrate')
-                .and.callFake(() => expect(onScrollSpies[i]).not.toHaveBeenCalled()));
+      const onScrollSpies = spiedElemGroups.map(group => jest.spyOn(group, 'onScroll').mockImplementation(jest.fn));
+      const calibrateSpies = spiedElemGroups.map((group, i) => jest.spyOn(group, 'calibrate')
+          .mockImplementation(() => expect(onScrollSpies[i]).not.toHaveBeenCalled()));
 
       calibrateSpies.forEach(spy => expect(spy).not.toHaveBeenCalled());
       onScrollSpies.forEach(spy => expect(spy).not.toHaveBeenCalled());

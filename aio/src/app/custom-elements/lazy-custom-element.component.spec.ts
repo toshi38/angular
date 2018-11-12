@@ -51,7 +51,7 @@ describe('LazyCustomElementComponent', () => {
     fixture.detectChanges();
 
     expect(mockElementsLoader.loadCustomElement).not.toHaveBeenCalled();
-    expect(mockLogger.output.error).toEqual([[jasmine.any(Error)]]);
+    expect(mockLogger.output.error).toEqual([[expect.any(Error)]]);
     expect(mockLogger.output.error[0][0].message).toBe('Invalid selector for \'aio-lazy-ce\': ');
   });
 
@@ -60,7 +60,7 @@ describe('LazyCustomElementComponent', () => {
     fixture.detectChanges();
 
     expect(mockElementsLoader.loadCustomElement).not.toHaveBeenCalled();
-    expect(mockLogger.output.error).toEqual([[jasmine.any(Error)]]);
+    expect(mockLogger.output.error).toEqual([[expect.any(Error)]]);
     expect(mockLogger.output.error[0][0].message).toBe(
         'Invalid selector for \'aio-lazy-ce\': foo-bar><script></script><foo-bar');
   });

@@ -182,7 +182,7 @@ describe('ApiListComponent', () => {
       component.setQuery('foo');
 
       // `setSearch` 2nd param is a query/search params object
-      const search = locationService.setSearch.calls.mostRecent().args[1];
+      const search = locationService.setSearch.mock.calls[locationService.setSearch.mock.calls.length - 1][1];
       expect(search.query).toBe('foo');
     });
 
@@ -190,7 +190,7 @@ describe('ApiListComponent', () => {
       component.setQuery('foo');
       component.setQuery('fooBar');
 
-      const search = locationService.setSearch.calls.mostRecent().args[1];
+      const search = locationService.setSearch.mock.calls[locationService.setSearch.mock.calls.length - 1][1];
       expect(search.query).toBe('foobar');
     });
 
@@ -199,7 +199,7 @@ describe('ApiListComponent', () => {
       component.setStatus({value: 'stable', title: 'Stable'});
       component.setType({value: 'class', title: 'Class'});
 
-      const search = locationService.setSearch.calls.mostRecent().args[1];
+      const search = locationService.setSearch.mock.calls[locationService.setSearch.mock.calls.length - 1][1];
       expect(search.query).toBe('foo');
       expect(search.status).toBe('stable');
       expect(search.type).toBe('class');

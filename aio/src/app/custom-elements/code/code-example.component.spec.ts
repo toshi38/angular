@@ -6,6 +6,8 @@ import { CodeExampleModule } from './code-example.module';
 import { Logger } from 'app/shared/logger.service';
 import { MockLogger } from 'testing/logger.service';
 
+import {MatSnackBarModule} from '@angular/material';
+
 describe('CodeExampleComponent', () => {
   let hostComponent: HostComponent;
   let codeExampleComponent: CodeExampleComponent;
@@ -13,7 +15,7 @@ describe('CodeExampleComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ CodeExampleModule ],
+      imports: [ CodeExampleModule, MatSnackBarModule ],
       declarations: [
         HostComponent,
       ],

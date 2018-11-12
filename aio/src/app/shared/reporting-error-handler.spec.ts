@@ -23,7 +23,7 @@ describe('ReportingErrorHandler service', () => {
 
   it('should be registered on the AppModule', () => {
     handler = TestBed.configureTestingModule({ imports: [AppModule] }).get(ErrorHandler);
-    expect(handler).toEqual(jasmine.any(ReportingErrorHandler));
+    expect(handler).toEqual(expect.any(ReportingErrorHandler));
   });
 
   describe('handleError', () => {
@@ -42,7 +42,7 @@ describe('ReportingErrorHandler service', () => {
 
       // Error from super handler is reported first
       expect(onerrorSpy.calls.argsFor(0)[0]).toEqual('super handler error');
-      expect(onerrorSpy.calls.argsFor(0)[4]).toEqual(jasmine.any(Error));
+      expect(onerrorSpy.calls.argsFor(0)[4]).toEqual(expect.any(Error));
 
       // Then error from initial exception
       expect(onerrorSpy.calls.argsFor(1)[0]).toEqual('initial error');

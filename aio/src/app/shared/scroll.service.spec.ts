@@ -28,7 +28,7 @@ describe('ScrollService', () => {
   }
 
   beforeEach(() => {
-    spyOn(window, 'scrollBy');
+    jest.spyOn(window, 'scrollBy').mockImplementation(jest.fn);
   });
 
   beforeEach(() => {
@@ -51,7 +51,7 @@ describe('ScrollService', () => {
     });
 
     it('should be calculated based on the top-bar\'s height + margin', () => {
-      (document.querySelector as jasmine.Spy).mockReturnValue({clientHeight: 50});
+      (document.querySelector as jest.SpyInstance).mockReturnValue({clientHeight: 50});
       expect(scrollService.topOffset).toBe(50 + topMargin);
     });
 
@@ -65,7 +65,7 @@ describe('ScrollService', () => {
 
     it('should retrieve the top-bar\'s height again after resize', () => {
       let clientHeight = 50;
-      (document.querySelector as jasmine.Spy).and.callFake(() => ({clientHeight}));
+      (document.querySelector as jest.SpyInstance).mockImplementation(() => ({clientHeight}));
 
       expect(scrollService.topOffset).toBe(50 + topMargin);
       expect(document.querySelector).toHaveBeenCalled();
@@ -100,7 +100,7 @@ describe('ScrollService', () => {
     });
 
     it('should return `<body>` if unable to find the top-of-page element', () => {
-      (document.getElementById as jasmine.Spy).mockReturnValue(null);
+      (document.getElementById as jest.SpyInstance).mockReturnValue(null);
       expect(scrollService.topOfPageElement).toBe(document.body as any);
     });
   });
@@ -110,8 +110,7 @@ describe('ScrollService', () => {
       location.hash = '';
 
       const topOfPage = new MockElement();
-      document.getElementById.and
-              .callFake((id: string) => id === 'top-of-page' ? topOfPage : null);
+      document.getElementById.mockImplementation((id: string) => id === 'top-of-page' ? topOfPage : null);
 
       scrollService.scroll();
       expect(topOfPage.scrollIntoView).toHaveBeenCalled();
@@ -159,7 +158,7 @@ describe('ScrollService', () => {
 
     it('should not scroll more than necessary (e.g. for elements close to the bottom)', () => {
       const element: Element = new MockElement() as any;
-      const getBoundingClientRect = element.getBoundingClientRect as jasmine.Spy;
+      const getBoundingClientRect = element.getBoundingClientRect as jest.SpyInstance;
       const topOffset = scrollService.topOffset;
 
       getBoundingClientRect.mockReturnValue({top: topOffset + 100});
@@ -200,7 +199,7 @@ describe('ScrollService', () => {
   describe('#scrollToTop', () => {
     it('should scroll to top', () => {
       const topOfPageElement = <Element><any> new MockElement();
-      document.getElementById.and.callFake(
+      document.getElementById.mockImplementation(
         (id: string) => id === 'top-of-page' ? topOfPageElement : null
       );
 

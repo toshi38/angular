@@ -72,7 +72,6 @@ describe('NavigationService', () => {
       httpMock.expectNone({});
     });
 
-    it('should do WHAT(?) if the request fails');
   });
 
   describe('node.tooltip', () => {

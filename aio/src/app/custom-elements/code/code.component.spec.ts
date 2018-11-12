@@ -1,6 +1,6 @@
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatSnackBar } from '@angular/material';
+import {MatSnackBar} from '@angular/material';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { first } from 'rxjs/operators';
@@ -40,13 +40,14 @@ describe('CodeComponent', () => {
   });
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [ NoopAnimationsModule, CodeModule ],
-      declarations: [ HostComponent ],
+    return TestBed.configureTestingModule({
+      imports: [ NoopAnimationsModule, CodeModule],
+      declarations: [ HostComponent ],l
       providers: [
         PrettyPrinter,
         CopierService,
-        {provide: Logger, useClass: TestLogger }
+        {provide: Logger, useClass: TestLogger },
+        {provide: MatSnackBar, useClass: {}}
      ]
     }).compileComponents();
   });
@@ -78,7 +79,7 @@ describe('CodeComponent', () => {
 
       // 'pln' spans are a tell-tale for syntax highlighting
       const spans = fixture.nativeElement.querySelectorAll('span.pln');
-      expect(spans.length).toBeGreaterThan(0, 'formatted spans');
+      expect(spans.length).toBeGreaterThan(0);
     });
 
     it('should format a one-line code sample without linenums by default', async () => {
@@ -136,7 +137,7 @@ describe('CodeComponent', () => {
 
       // `<li>`s are a tell-tale for line numbers
       const lis = fixture.nativeElement.querySelectorAll('li');
-      expect(lis.length).toBe(0, 'should be no linenums');
+      expect(lis.length).toBe(0);
     });
   });
 
@@ -148,7 +149,7 @@ describe('CodeComponent', () => {
     }
 
     it('should not display "code-missing" class when there is some code', () => {
-      expect(getErrorMessage()).toBeNull('should not have element with "code-missing" class');
+      expect(getErrorMessage()).toBeNull();
     });
 
     it('should display error message when there is no code (after trimming)', () => {
@@ -208,22 +209,22 @@ describe('CodeComponent', () => {
 
     it('should call copier service when clicked', () => {
       const copierService: CopierService = TestBed.get(CopierService);
-      const spy = spyOn(copierService, 'copyText');
-      expect(spy.calls.count()).toBe(0, 'before click');
+      const spy = jest.spyOn(copierService, 'copyText').mockImplementation(jest.fn);
+      expect(spy.mock.calls.length).toBe(0);
       getButton().click();
-      expect(spy.calls.count()).toBe(1, 'after click');
+      expect(spy.mock.calls.length).toBe(1);
     });
 
     it('should copy code text when clicked', () => {
       const copierService: CopierService = TestBed.get(CopierService);
-      const spy = spyOn(copierService, 'copyText');
+      const spy = jest.spyOn(copierService, 'copyText');
       getButton().click();
-      expect(spy.calls.argsFor(0)[0]).toBe(oneLineCode, 'after click');
+      expect(spy.mock.calls[0][0]).toBe(oneLineCode);
     });
 
     it('should preserve newlines in the copied code', () => {
       const copierService: CopierService = TestBed.get(CopierService);
-      const spy = spyOn(copierService, 'copyText');
+      const spy = jest.spyOn(copierService, 'copyText');
       const expectedCode = smallMultiLineCode.trim().replace(/&lt;/g, '<').replace(/&gt;/g, '>');
       let actualCode;
 
@@ -233,9 +234,9 @@ describe('CodeComponent', () => {
         hostComponent.linenums = linenums;
         fixture.detectChanges();
         getButton().click();
-        actualCode = spy.calls.mostRecent().args[0];
+        actualCode = spy.mock.calls[spy.mock.calls.length - 1][0];
 
-        expect(actualCode).toBe(expectedCode, `when linenums=${linenums}`);
+        expect(actualCode).toBe(expectedCode);
         expect(actualCode.match(/\r?\n/g).length).toBe(5);
 
         spy.mockClear();
@@ -245,8 +246,8 @@ describe('CodeComponent', () => {
     it('should display a message when copy succeeds', () => {
       const snackBar: MatSnackBar = TestBed.get(MatSnackBar);
       const copierService: CopierService = TestBed.get(CopierService);
-      spyOn(snackBar, 'open');
-      spyOn(copierService, 'copyText').mockReturnValue(true);
+      jest.spyOn(snackBar, 'open').mockImplementation(jest.fn);
+      jest.spyOn(copierService, 'copyText').mockReturnValue(true);
       getButton().click();
       expect(snackBar.open).toHaveBeenCalledWith('Code Copied', '', { duration: 800 });
     });
@@ -255,13 +256,13 @@ describe('CodeComponent', () => {
       const snackBar: MatSnackBar = TestBed.get(MatSnackBar);
       const copierService: CopierService = TestBed.get(CopierService);
       const logger: TestLogger = TestBed.get(Logger);
-      spyOn(snackBar, 'open');
-      spyOn(copierService, 'copyText').mockReturnValue(false);
+      jest.spyOn(snackBar, 'open').mockImplementation(jest.fn);
+      jest.spyOn(copierService, 'copyText').mockReturnValue(false);
       getButton().click();
       expect(snackBar.open).toHaveBeenCalledWith('Copy failed. Please try again!', '', { duration: 800 });
       expect(logger.error).toHaveBeenCalledTimes(1);
-      expect(logger.error).toHaveBeenCalledWith(jasmine.any(Error));
-      expect(logger.error.calls.mostRecent().args[0].message).toMatch(/^ERROR copying code to clipboard:/);
+      expect(logger.error).toHaveBeenCalledWith(expect.any(Error));
+      expect(logger.error.mock.calls[logger.error.mock.calls.length - 1][0].message).toMatch(/^ERROR copying code to clipboard:/);
     });
   });
 });

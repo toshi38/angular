@@ -6,7 +6,7 @@ import { WindowToken } from 'app/shared/window';
 describe('GaService', () => {
   let gaService: GaService;
   let injector: ReflectiveInjector;
-  let gaSpy: jasmine.Spy;
+  let gaSpy: jest.SpyInstance;
   let mockWindow: any;
 
   beforeEach(() => {
@@ -17,7 +17,7 @@ describe('GaService', () => {
   });
 
   it('should initialize ga with "create" when constructed', () => {
-    const first = gaSpy.calls.first().args;
+    const first = gaSpy.mock.calls[0];
     expect(first[0]).toBe('create');
   });
 
