@@ -35,3 +35,10 @@ Object.defineProperty(document.body.style, 'transform', {
         };
     },
 });
+
+Object.defineProperty(window, 'customElements', {
+    value: {
+        define: () => {},
+        whenDefined: () => {}
+    }
+});
