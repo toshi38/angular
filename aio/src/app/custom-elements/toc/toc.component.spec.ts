@@ -455,7 +455,7 @@ class HostEmbeddedTocComponent {}
 class HostNotEmbeddedTocComponent {}
 
 class TestScrollService {
-  scrollToTop = jest.fn('scrollToTop');
+  scrollToTop = jest.fn();
 }
 
 class TestTocService {

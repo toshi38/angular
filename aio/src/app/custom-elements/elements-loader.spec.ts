@@ -244,7 +244,7 @@ class FakeComponentFactory extends ComponentFactory<any> {
          projectableNodes?: any[][],
          rootSelectorOrNode?: string | any,
          ngModule?: NgModuleRef<any>): ComponentRef<any> {
-    return jest.fn('ComponentRef') as any;
+    return jest.fn() as any;
   };
 }
 

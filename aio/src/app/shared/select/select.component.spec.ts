@@ -165,7 +165,7 @@ describe('SelectComponent', () => {
     </aio-select>`
 })
 class HostComponent {
-  onChange = jest.fn('onChange');
+  onChange = jest.fn();
   options: Option[];
   selected: Option;
   label: string;

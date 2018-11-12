@@ -12,7 +12,7 @@ describe('SearchService', () => {
   let mockWorker: WebWorkerClient;
 
   beforeEach(() => {
-    sendMessageSpy = jest.fn('sendMessage').mockReturnValue(of({}));
+    sendMessageSpy = jest.fn().mockReturnValue(of({}));
     mockWorker = { sendMessage: sendMessageSpy } as any;
     spyOn(WebWorkerClient, 'create').mockReturnValue(mockWorker);
 

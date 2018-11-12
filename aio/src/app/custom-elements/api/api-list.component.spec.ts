@@ -211,7 +211,7 @@ describe('ApiListComponent', () => {
 
 class TestLocationService {
   query: {[index: string]: string } = {};
-  setSearch = jest.fn('setSearch');
+  setSearch = jest.fn();
   search() { return this.query; }
 }
 

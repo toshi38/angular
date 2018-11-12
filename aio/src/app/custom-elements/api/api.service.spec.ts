@@ -122,6 +122,6 @@ describe('ApiService', () => {
 });
 
 class TestLogger {
-  log = jest.fn('log');
-  error = jest.fn('error');
+  log = jest.fn();
+  error = jest.fn();
 }

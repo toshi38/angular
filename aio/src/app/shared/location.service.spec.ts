@@ -600,7 +600,7 @@ describe('LocationService', () => {
 /// Test Helpers ///
 class MockPlatformLocation {
   pathname = 'a/b/c';
-  replaceState = jest.fn('PlatformLocation.replaceState');
+  replaceState = jest.fn();
 }
 
 class MockSwUpdatesService {
@@ -608,5 +608,5 @@ class MockSwUpdatesService {
 }
 
 class TestGaService {
-  locationChanged = jest.fn('locationChanged');
+  locationChanged = jest.fn();
 }

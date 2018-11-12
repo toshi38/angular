@@ -205,7 +205,7 @@ class MockApplicationRef {
 }
 
 class MockLogger {
-  log = jest.fn('MockLogger.log');
+  log = jest.fn();
 }
 
 class MockSwUpdate {
@@ -215,11 +215,9 @@ class MockSwUpdate {
   available = this.$$availableSubj.asObservable();
   activated = this.$$activatedSubj.asObservable();
 
-  activateUpdate = jest.fn('MockSwUpdate.activateUpdate')
-                          .and.callFake(() => Promise.resolve());
+  activateUpdate = jest.fn(() => Promise.resolve());
 
-  checkForUpdate = jest.fn('MockSwUpdate.checkForUpdate')
-                          .and.callFake(() => Promise.resolve());
+  checkForUpdate = jest.fn(() => Promise.resolve());
 
   constructor(public isEnabled: boolean) {}
 }

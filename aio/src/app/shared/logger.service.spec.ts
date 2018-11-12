@@ -43,5 +43,5 @@ describe('logger service', () => {
 
 
 class MockErrorHandler implements ErrorHandler {
-  handleError = jest.fn('handleError');
+  handleError = jest.fn();
 }

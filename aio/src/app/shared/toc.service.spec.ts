@@ -340,13 +340,12 @@ interface TestSafeHtml extends SafeHtml {
 }
 
 class TestDomSanitizer {
-  bypassSecurityTrustHtml = jest.fn('bypassSecurityTrustHtml')
-    .and.callFake((html: string) => {
+  bypassSecurityTrustHtml = jest.fn((html: string) => {
       return {
-        changingThisBreaksApplicationSecurity: html,
-        getTypeName: () => 'HTML',
+          changingThisBreaksApplicationSecurity: html,
+          getTypeName: () => 'HTML',
       } as TestSafeHtml;
-    });
+  });
 }
 
 class MockScrollSpyService {
@@ -365,7 +364,7 @@ class MockScrollSpyService {
   spyOn(headings: HTMLHeadingElement[]): ScrollSpyInfo {
     return this.$$lastInfo = {
       active: new Subject<ScrollItem | null>(),
-      unspy: jest.fn('unspy'),
+      unspy: jest.fn(),
     };
   }
 }

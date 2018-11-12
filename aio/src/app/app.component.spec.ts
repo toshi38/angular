@@ -1312,15 +1312,15 @@ function createTestingModule(initialUrl: string, mode: string = 'stable') {
 }
 
 class TestElementsLoader {
-  loadContainedCustomElements = jest.fn('loadContainedCustomElements')
+  loadContainedCustomElements = jest.fn()
       .mockReturnValue(of(undefined));
 
-  loadCustomElement = jest.fn('loadCustomElement')
+  loadCustomElement = jest.fn()
       .mockReturnValue(Promise.resolve());
 }
 
 class TestGaService {
-  locationChanged = jest.fn('locationChanged');
+  locationChanged = jest.fn();
 }
 
 class TestHttpClient {

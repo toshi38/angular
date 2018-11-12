@@ -17,14 +17,14 @@ describe('ScrollService', () => {
 
   class MockDocument {
     body = new MockElement();
-    getElementById = jest.fn('Document getElementById').mockReturnValue(topOfPageElem);
-    querySelector = jest.fn('Document querySelector');
+    getElementById = jest.fn().mockReturnValue(topOfPageElem);
+    querySelector = jest.fn();
   }
 
   class MockElement {
-    getBoundingClientRect = jest.fn('Element getBoundingClientRect')
+    getBoundingClientRect = jest.fn()
                                    .mockReturnValue({top: 0});
-    scrollIntoView = jest.fn('Element scrollIntoView');
+    scrollIntoView = jest.fn();
   }
 
   beforeEach(() => {

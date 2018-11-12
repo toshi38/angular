@@ -83,11 +83,10 @@ describe('ContributorListComponent', () => {
 
   class TestLocationService {
     searchResult: SearchResult = {};
-    search = jest.fn('search').and.callFake(() => this.searchResult);
-    setSearch = jest.fn('setSearch')
-      .and.callFake((label: string, result: SearchResult) => {
+    search = jest.fn(() => this.searchResult);
+    setSearch = jest.fn((label: string, result: SearchResult) => {
         this.searchResult = result;
-      });
+    });
   }
 
   class TestContributorService {
