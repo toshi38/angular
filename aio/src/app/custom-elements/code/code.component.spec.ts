@@ -1,6 +1,6 @@
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatSnackBar } from '@angular/material';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { first } from 'rxjs/operators';
@@ -40,13 +40,14 @@ describe('CodeComponent', () => {
   });
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
+    return TestBed.configureTestingModule({
       imports: [ NoopAnimationsModule, CodeModule ],
       declarations: [ HostComponent ],
       providers: [
         PrettyPrinter,
         CopierService,
-        {provide: Logger, useClass: TestLogger }
+        MatSnackBar,
+        {provide: Logger, useClass: TestLogger },
      ]
     }).compileComponents();
   });

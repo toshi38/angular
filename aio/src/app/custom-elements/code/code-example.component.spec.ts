@@ -6,6 +6,8 @@ import { CodeExampleModule } from './code-example.module';
 import { Logger } from 'app/shared/logger.service';
 import { MockLogger } from 'testing/logger.service';
 
+import {MatSnackBar} from '@angular/material/snack-bar';
+
 describe('CodeExampleComponent', () => {
   let hostComponent: HostComponent;
   let codeExampleComponent: CodeExampleComponent;
@@ -18,6 +20,7 @@ describe('CodeExampleComponent', () => {
         HostComponent,
       ],
       providers: [
+          MatSnackBar,
         { provide: Logger, useClass: MockLogger },
       ]
     });

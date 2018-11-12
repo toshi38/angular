@@ -4,6 +4,8 @@ import { Logger } from 'app/shared/logger.service';
 import { MockLogger } from 'testing/logger.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
+import {MatSnackBar} from '@angular/material/snack-bar';
+
 import { CodeTabsComponent } from './code-tabs.component';
 import { CodeTabsModule } from './code-tabs.module';
 
@@ -18,7 +20,8 @@ describe('CodeTabsComponent', () => {
       imports: [ CodeTabsModule, NoopAnimationsModule ],
       schemas: [ NO_ERRORS_SCHEMA ],
       providers: [
-       { provide: Logger, useClass: MockLogger },
+        MatSnackBar,
+        { provide: Logger, useClass: MockLogger },
       ]
     });
 
