@@ -14,6 +14,22 @@ const mock = () => {
 
 Object.defineProperty(window, 'localStorage', {value: mock()});
 Object.defineProperty(window, 'sessionStorage', {value: mock()});
+class Worker {
+    constructor(stringUrl) {
+        this.url = stringUrl;
+        this.onmessage = () => {};
+    }
+    postMessage(msg) {
+        this.onmessage(msg);
+    }
+}
+Object.defineProperty(window, "Worker", { value: Worker });
+Object.defineProperty(window.HTMLElement.prototype, "scrollIntoView", {
+    value: () => {}
+});
+Object.defineProperty(window, "scrollBy", {
+    value: () => {}
+});
 Object.defineProperty(document, 'doctype', {
     value: '<!DOCTYPE html>'
 });
