@@ -271,7 +271,7 @@ describe('LocationService', () => {
 
     it('should ignore empty URL string', () => {
         const initialUrl = 'some/url';
-        const goExternalSpy = spyOn(service, 'goExternal');
+        const goExternalSpy = jest.spyOn(service, 'goExternal').mockImplementation(jest.fn);
         let url: string|undefined;
 
         service.go(initialUrl);
@@ -283,14 +283,14 @@ describe('LocationService', () => {
     });
 
     it('should leave the site for external url that starts with "http"', () => {
-      const goExternalSpy = spyOn(service, 'goExternal');
+      const goExternalSpy = jest.spyOn(service, 'goExternal').mockImplementation(jest.fn);
       const externalUrl = 'http://some/far/away/land';
       service.go(externalUrl);
       expect(goExternalSpy).toHaveBeenCalledWith(externalUrl);
     });
 
     it('should do a "full page navigation" if a ServiceWorker update has been activated', () => {
-      const goExternalSpy = spyOn(service, 'goExternal');
+      const goExternalSpy = jest.spyOn(service, 'goExternal').mockImplementation(jest.fn);
 
       // Internal URL - No ServiceWorker update
       service.go('some-internal-url');
@@ -306,7 +306,7 @@ describe('LocationService', () => {
 
     it('should not update currentUrl for external url that starts with "http"', () => {
       let localUrl: string|undefined;
-      spyOn(service, 'goExternal');
+      jest.spyOn(service, 'goExternal').mockImplementation(jest.fn);
       service.currentUrl.subscribe(url => localUrl = url);
       service.go('https://some/far/away/land');
       expect(localUrl).toBeFalsy();
@@ -345,7 +345,7 @@ describe('LocationService', () => {
     });
 
     it('should cope with a hash on the URL', () => {
-      spyOn(location, 'path').and.callThrough();
+      jest.spyOn(location, 'path');
       service.search();
       expect(location.path).toHaveBeenCalledWith(false);
     });
@@ -361,13 +361,13 @@ describe('LocationService', () => {
     it('should call replaceState on PlatformLocation', () => {
       const params = {};
       service.setSearch('Some label', params);
-      expect(platformLocation.replaceState).toHaveBeenCalledWith(jasmine.any(Object), 'Some label', 'a/b/c');
+      expect(platformLocation.replaceState).toHaveBeenCalledWith(expect.any(Object), 'Some label', 'a/b/c');
     });
 
     it('should convert the params to a query string', () => {
       const params = { foo: 'bar', moo: 'car' };
       service.setSearch('Some label', params);
-      expect(platformLocation.replaceState).toHaveBeenCalledWith(jasmine.any(Object), 'Some label', jasmine.any(String));
+      expect(platformLocation.replaceState).toHaveBeenCalledWith(expect.any(Object), 'Some label', expect.any(String));
       const [path, query] = platformLocation.replaceState.mock.calls[platformLocation.replaceState.mock.calls.length - 1][2].split('?');
       expect(path).toEqual('a/b/c');
       expect(query).toContain('foo=bar');
@@ -394,7 +394,7 @@ describe('LocationService', () => {
 
     beforeEach(() => {
       anchor = document.createElement('a');
-      spyOn(service, 'go');
+      jest.spyOn(service, 'go').mockImplementation(jest.fn);
     });
 
     describe('should try to navigate with go() when anchor clicked for', () => {
@@ -549,7 +549,7 @@ describe('LocationService', () => {
 
   describe('google analytics - GaService#locationChanged', () => {
 
-    let gaLocationChanged: jasmine.Spy;
+    let gaLocationChanged: jest.SpyInstance;
 
     beforeEach(() => {
       const gaService = injector.get(GaService);

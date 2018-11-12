@@ -2,8 +2,8 @@ import { ErrorHandler, ReflectiveInjector } from '@angular/core';
 import { Logger } from './logger.service';
 
 describe('logger service', () => {
-  let logSpy: jasmine.Spy;
-  let warnSpy: jasmine.Spy;
+  let logSpy: jest.SpyInstance;
+  let warnSpy: jest.SpyInstance;
   let logger: Logger;
   let errorHandler: ErrorHandler;
 

@@ -209,7 +209,7 @@ describe('CodeComponent', () => {
 
     it('should call copier service when clicked', () => {
       const copierService: CopierService = TestBed.get(CopierService);
-      const spy = spyOn(copierService, 'copyText');
+      const spy = jest.spyOn(copierService, 'copyText').mockImplementation(jest.fn);
       expect(spy.mock.calls.length).toBe(0);
       getButton().click();
       expect(spy.mock.calls.length).toBe(1);
@@ -217,14 +217,14 @@ describe('CodeComponent', () => {
 
     it('should copy code text when clicked', () => {
       const copierService: CopierService = TestBed.get(CopierService);
-      const spy = spyOn(copierService, 'copyText');
+      const spy = jest.spyOn(copierService, 'copyText');
       getButton().click();
       expect(spy.mock.calls[0][0]).toBe(oneLineCode);
     });
 
     it('should preserve newlines in the copied code', () => {
       const copierService: CopierService = TestBed.get(CopierService);
-      const spy = spyOn(copierService, 'copyText');
+      const spy = jest.spyOn(copierService, 'copyText');
       const expectedCode = smallMultiLineCode.trim().replace(/&lt;/g, '<').replace(/&gt;/g, '>');
       let actualCode;
 
@@ -246,8 +246,8 @@ describe('CodeComponent', () => {
     it('should display a message when copy succeeds', () => {
       const snackBar: MatSnackBar = TestBed.get(MatSnackBar);
       const copierService: CopierService = TestBed.get(CopierService);
-      spyOn(snackBar, 'open');
-      spyOn(copierService, 'copyText').mockReturnValue(true);
+      jest.spyOn(snackBar, 'open').mockImplementation(jest.fn);
+      jest.spyOn(copierService, 'copyText').mockReturnValue(true);
       getButton().click();
       expect(snackBar.open).toHaveBeenCalledWith('Code Copied', '', { duration: 800 });
     });
@@ -256,12 +256,12 @@ describe('CodeComponent', () => {
       const snackBar: MatSnackBar = TestBed.get(MatSnackBar);
       const copierService: CopierService = TestBed.get(CopierService);
       const logger: TestLogger = TestBed.get(Logger);
-      spyOn(snackBar, 'open');
-      spyOn(copierService, 'copyText').mockReturnValue(false);
+      jest.spyOn(snackBar, 'open').mockImplementation(jest.fn);
+      jest.spyOn(copierService, 'copyText').mockReturnValue(false);
       getButton().click();
       expect(snackBar.open).toHaveBeenCalledWith('Copy failed. Please try again!', '', { duration: 800 });
       expect(logger.error).toHaveBeenCalledTimes(1);
-      expect(logger.error).toHaveBeenCalledWith(jasmine.any(Error));
+      expect(logger.error).toHaveBeenCalledWith(expect.any(Error));
       expect(logger.error.mock.calls[logger.error.mock.calls.length - 1][0].message).toMatch(/^ERROR copying code to clipboard:/);
     });
   });

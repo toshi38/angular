@@ -92,7 +92,7 @@ describe('NotificationComponent', () => {
   it('should update localStorage key when dismiss is called', () => {
     configTestingModule();
     createComponent();
-    const setItemSpy: jasmine.Spy = TestBed.get(WindowToken).localStorage.setItem;
+    const setItemSpy: jest.SpyInstance = TestBed.get(WindowToken).localStorage.setItem;
     component.dismiss();
     expect(setItemSpy).toHaveBeenCalledWith('aio-notification/survey-january-2018', 'hide');
   });

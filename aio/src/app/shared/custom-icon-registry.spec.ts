@@ -26,7 +26,7 @@ describe('CustomIconRegistry', () => {
     const svgIcons: SvgIconInfo[] = [
       { name: 'test_icon', svgSource: svgSrc }
     ];
-    spyOn(MatIconRegistry.prototype, 'getNamedSvgIcon');
+    jest.spyOn(MatIconRegistry.prototype, 'getNamedSvgIcon').mockImplementation(jest.fn);
 
     const registry = new CustomIconRegistry(mockHttp, mockSanitizer, mockDocument, svgIcons);
 

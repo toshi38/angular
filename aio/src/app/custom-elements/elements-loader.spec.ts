@@ -34,9 +34,9 @@ describe('ElementsLoader', () => {
   });
 
   describe('loadContainedCustomElements()', () => {
-    let loadCustomElementSpy: jasmine.Spy;
+    let loadCustomElementSpy: jest.SpyInstance;
 
-    beforeEach(() => loadCustomElementSpy = spyOn(elementsLoader, 'loadCustomElement'));
+    beforeEach(() => loadCustomElementSpy = jest.spyOn(elementsLoader, 'loadCustomElement').mockImplementation(jest.fn));
 
     it('should attempt to load and register all contained elements', fakeAsync(() => {
       expect(loadCustomElementSpy).not.toHaveBeenCalled();
@@ -128,15 +128,17 @@ describe('ElementsLoader', () => {
   });
 
   describe('loadCustomElement()', () => {
-    let definedSpy: jasmine.Spy;
-    let whenDefinedSpy: jasmine.Spy;
+    let definedSpy: jest.SpyInstance;
+    let whenDefinedSpy: jest.SpyInstance;
     let whenDefinedDeferreds: Deferred[];
 
     beforeEach(() => {
       // `loadCustomElement()` uses the `window.customElements` API. Provide mocks for these tests.
-      definedSpy = spyOn(window.customElements, 'define');
-      whenDefinedSpy = spyOn(window.customElements, 'whenDefined');
+      definedSpy = jest.spyOn(window.customElements, 'define').mockImplementation(jest.fn);
+      whenDefinedSpy = jest.spyOn(window.customElements, 'whenDefined').mockImplementation(jest.fn);
       whenDefinedDeferreds = returnPromisesFromSpy(whenDefinedSpy);
+      definedSpy.mockClear();
+      whenDefinedSpy.mockClear();
     });
 
     it('should be able to load and register an element', fakeAsync(() => {
@@ -291,8 +293,8 @@ class FakeModuleFactoryLoader extends NgModuleFactoryLoader {
   }
 }
 
-function returnPromisesFromSpy(spy: jasmine.Spy): Deferred[] {
+function returnPromisesFromSpy(spy: jest.SpyInstance): Deferred[] {
   const deferreds: Deferred[] = [];
-  spy.and.callFake(() => new Promise((resolve, reject) => deferreds.push({resolve, reject})));
+  spy.mockImplementation(() => new Promise((resolve, reject) => deferreds.push({resolve, reject})));
   return deferreds;
 }

@@ -129,7 +129,7 @@ describe('TocComponent', () => {
     });
 
     describe('when many TocItems', () => {
-      let scrollToTopSpy: jasmine.Spy;
+      let scrollToTopSpy: jest.SpyInstance;
 
       beforeEach(() => {
         fixture.detectChanges();

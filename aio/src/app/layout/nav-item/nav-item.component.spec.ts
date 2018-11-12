@@ -15,7 +15,7 @@ describe('NavItemComponent', () => {
     let component: NavItemComponent;
 
     let selectedNodes: NavigationNode[];
-    let setClassesSpy: jasmine.Spy;
+    let setClassesSpy: jest.SpyInstance;
 
     function initialize(nd: NavigationNode) {
       component.node = nd;
@@ -30,8 +30,8 @@ describe('NavItemComponent', () => {
     beforeEach(() => {
 
       component = new NavItemComponent();
-      setClassesSpy = spyOn(component, 'setClasses').and.callThrough();
-
+      setClassesSpy = jest.spyOn(component, 'setClasses');
+      setClassesSpy.mockClear();
       // Selected nodes is the selected node and its header ancestors
       selectedNodes = [
         { title: 'a' },           // selected node: an item or a header

@@ -6,7 +6,7 @@ import { WindowToken } from 'app/shared/window';
 describe('GaService', () => {
   let gaService: GaService;
   let injector: ReflectiveInjector;
-  let gaSpy: jasmine.Spy;
+  let gaSpy: jest.SpyInstance;
   let mockWindow: any;
 
   beforeEach(() => {

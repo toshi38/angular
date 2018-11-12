@@ -351,7 +351,7 @@ class TestDomSanitizer {
 class MockScrollSpyService {
   private $$lastInfo: {
     active: Subject<ScrollItem | null>,
-    unspy: jasmine.Spy,
+    unspy: jest.SpyInstance,
   } | undefined;
 
   get $lastInfo() {

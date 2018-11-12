@@ -7,12 +7,12 @@ import { ReportingErrorHandler } from './reporting-error-handler';
 
 describe('ReportingErrorHandler service', () => {
   let handler: ReportingErrorHandler;
-  let superHandler: jasmine.Spy;
-  let onerrorSpy: jasmine.Spy;
+  let superHandler: jest.SpyInstance;
+  let onerrorSpy: jest.SpyInstance;
 
   beforeEach(() => {
     onerrorSpy = jest.fn();
-    superHandler = spyOn(ErrorHandler.prototype, 'handleError');
+    superHandler = jest.spyOn(ErrorHandler.prototype, 'handleError').mockImplementation(jest.fn);
 
     const injector = ReflectiveInjector.resolveAndCreate([
       { provide: ErrorHandler, useClass: ReportingErrorHandler },
@@ -35,7 +35,7 @@ describe('ReportingErrorHandler service', () => {
 
     it('should cope with the super handler throwing an error', () => {
       const error = new Error('initial error');
-      superHandler.and.throwError('super handler error');
+      superHandler.mockImplementation(() => {throw new Error('super handler error')});
       handler.handleError(error);
 
       expect(onerrorSpy).toHaveBeenCalledTimes(2);

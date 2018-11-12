@@ -8,13 +8,13 @@ describe('SearchService', () => {
 
   let injector: ReflectiveInjector;
   let service: SearchService;
-  let sendMessageSpy: jasmine.Spy;
+  let sendMessageSpy: jest.SpyInstance;
   let mockWorker: WebWorkerClient;
 
   beforeEach(() => {
     sendMessageSpy = jest.fn().mockReturnValue(of({}));
     mockWorker = { sendMessage: sendMessageSpy } as any;
-    spyOn(WebWorkerClient, 'create').mockReturnValue(mockWorker);
+    jest.spyOn(WebWorkerClient, 'create').mockReturnValue(mockWorker);
 
     injector = ReflectiveInjector.resolveAndCreate([
         SearchService,
@@ -56,7 +56,7 @@ describe('SearchService', () => {
     it('should push the response to the returned observable', () => {
       const mockSearchResults = { results: ['a', 'b'] };
       let actualSearchResults: any;
-      (mockWorker.sendMessage as jasmine.Spy).mockReturnValue(of(mockSearchResults));
+      (mockWorker.sendMessage as jest.SpyInstance).mockReturnValue(of(mockSearchResults));
       service.search('some query').subscribe(results => actualSearchResults = results);
       expect(actualSearchResults).toEqual(mockSearchResults);
     });
