@@ -79,7 +79,7 @@ describe('CodeComponent', () => {
 
       // 'pln' spans are a tell-tale for syntax highlighting
       const spans = fixture.nativeElement.querySelectorAll('span.pln');
-      expect(spans.length).toBeGreaterThan(0, 'formatted spans');
+      expect(spans.length).toBeGreaterThan(0);
     });
 
     it('should format a one-line code sample without linenums by default', async () => {
@@ -137,7 +137,7 @@ describe('CodeComponent', () => {
 
       // `<li>`s are a tell-tale for line numbers
       const lis = fixture.nativeElement.querySelectorAll('li');
-      expect(lis.length).toBe(0, 'should be no linenums');
+      expect(lis.length).toBe(0);
     });
   });
 
@@ -149,7 +149,7 @@ describe('CodeComponent', () => {
     }
 
     it('should not display "code-missing" class when there is some code', () => {
-      expect(getErrorMessage()).toBeNull('should not have element with "code-missing" class');
+      expect(getErrorMessage()).toBeNull();
     });
 
     it('should display error message when there is no code (after trimming)', () => {
@@ -236,7 +236,7 @@ describe('CodeComponent', () => {
         getButton().click();
         actualCode = spy.mock.calls[spy.mock.calls.length - 1][0];
 
-        expect(actualCode).toBe(expectedCode, `when linenums=${linenums}`);
+        expect(actualCode).toBe(expectedCode);
         expect(actualCode.match(/\r?\n/g).length).toBe(5);
 
         spy.mockClear();

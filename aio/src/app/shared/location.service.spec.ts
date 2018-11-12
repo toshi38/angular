@@ -278,7 +278,7 @@ describe('LocationService', () => {
         service.currentUrl.subscribe(u => url = u);
 
         service.go('');
-        expect(url).toEqual(initialUrl, 'should not have re-navigated locally');
+        expect(url).toEqual(initialUrl);
         expect(goExternalSpy).not.toHaveBeenCalled();
     });
 
@@ -515,27 +515,27 @@ describe('LocationService', () => {
         anchor.href = 'cat-photo.png';
         let result = service.handleAnchorClick(anchor);
         expect(service.go).not.toHaveBeenCalled();
-        expect(result).toBe(true, 'png');
+        expect(result).toBe(true);
 
         anchor.href = 'cat-photo.gif';
         result = service.handleAnchorClick(anchor);
         expect(service.go).not.toHaveBeenCalled();
-        expect(result).toBe(true, 'gif');
+        expect(result).toBe(true);
 
         anchor.href = 'cat-photo.jpg';
         result = service.handleAnchorClick(anchor);
         expect(service.go).not.toHaveBeenCalled();
-        expect(result).toBe(true, 'jpg');
+        expect(result).toBe(true);
 
         anchor.href = 'dog-bark.mp3';
         result = service.handleAnchorClick(anchor);
         expect(service.go).not.toHaveBeenCalled();
-        expect(result).toBe(true, 'mp3');
+        expect(result).toBe(true);
 
         anchor.href = 'pet-tricks.mp4';
         result = service.handleAnchorClick(anchor);
         expect(service.go).not.toHaveBeenCalled();
-        expect(result).toBe(true, 'mp4');
+        expect(result).toBe(true);
       });
 
       it('url has any extension', () => {
