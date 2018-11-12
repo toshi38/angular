@@ -209,16 +209,16 @@ describe('CodeComponent', () => {
     it('should call copier service when clicked', () => {
       const copierService: CopierService = TestBed.get(CopierService);
       const spy = spyOn(copierService, 'copyText');
-      expect(spy.calls.count()).toBe(0, 'before click');
+      expect(spy.mock.calls.length).toBe(0);
       getButton().click();
-      expect(spy.calls.count()).toBe(1, 'after click');
+      expect(spy.mock.calls.length).toBe(1);
     });
 
     it('should copy code text when clicked', () => {
       const copierService: CopierService = TestBed.get(CopierService);
       const spy = spyOn(copierService, 'copyText');
       getButton().click();
-      expect(spy.calls.argsFor(0)[0]).toBe(oneLineCode, 'after click');
+      expect(spy.mock.calls[0][0]).toBe(oneLineCode);
     });
 
     it('should preserve newlines in the copied code', () => {
@@ -233,7 +233,7 @@ describe('CodeComponent', () => {
         hostComponent.linenums = linenums;
         fixture.detectChanges();
         getButton().click();
-        actualCode = spy.calls.mostRecent().args[0];
+        actualCode = spy.mock.calls[spy.mock.calls.length - 1][0];
 
         expect(actualCode).toBe(expectedCode, `when linenums=${linenums}`);
         expect(actualCode.match(/\r?\n/g).length).toBe(5);
@@ -261,7 +261,7 @@ describe('CodeComponent', () => {
       expect(snackBar.open).toHaveBeenCalledWith('Copy failed. Please try again!', '', { duration: 800 });
       expect(logger.error).toHaveBeenCalledTimes(1);
       expect(logger.error).toHaveBeenCalledWith(jasmine.any(Error));
-      expect(logger.error.calls.mostRecent().args[0].message).toMatch(/^ERROR copying code to clipboard:/);
+      expect(logger.error.mock.calls[logger.error.mock.calls.length - 1][0].message).toMatch(/^ERROR copying code to clipboard:/);
     });
   });
 });

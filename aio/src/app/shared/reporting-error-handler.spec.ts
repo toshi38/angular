@@ -41,12 +41,12 @@ describe('ReportingErrorHandler service', () => {
       expect(onerrorSpy).toHaveBeenCalledTimes(2);
 
       // Error from super handler is reported first
-      expect(onerrorSpy.calls.argsFor(0)[0]).toEqual('super handler error');
-      expect(onerrorSpy.calls.argsFor(0)[4]).toEqual(jasmine.any(Error));
+      expect(onerrorSpy.mock.calls[0][0]).toEqual('super handler error');
+      expect(onerrorSpy.mock.calls[0][4]).toEqual(expect.any(Error));
 
       // Then error from initial exception
-      expect(onerrorSpy.calls.argsFor(1)[0]).toEqual('initial error');
-      expect(onerrorSpy.calls.argsFor(1)[4]).toEqual(error);
+      expect(onerrorSpy.mock.calls[1][0]).toEqual('initial error');
+      expect(onerrorSpy.mock.calls[1][4]).toEqual(error);
     });
 
     it('should send an error object to window.onerror', () => {

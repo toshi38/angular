@@ -368,7 +368,7 @@ describe('LocationService', () => {
       const params = { foo: 'bar', moo: 'car' };
       service.setSearch('Some label', params);
       expect(platformLocation.replaceState).toHaveBeenCalledWith(jasmine.any(Object), 'Some label', jasmine.any(String));
-      const [path, query] = platformLocation.replaceState.calls.mostRecent().args[2].split('?');
+      const [path, query] = platformLocation.replaceState.mock.calls[platformLocation.replaceState.mock.calls.length - 1][2].split('?');
       expect(path).toEqual('a/b/c');
       expect(query).toContain('foo=bar');
       expect(query).toContain('moo=car');
@@ -377,14 +377,14 @@ describe('LocationService', () => {
     it('should URL encode param values', () => {
       const params = { query: 'a&b+c d' };
       service.setSearch('', params);
-      const [, query] = platformLocation.replaceState.calls.mostRecent().args[2].split('?');
+      const [, query] = platformLocation.replaceState.mock.calls[platformLocation.replaceState.mock.calls.length - 1][2].split('?');
       expect(query).toContain('query=a%26b%2Bc%20d');
     });
 
     it('should URL encode param keys', () => {
       const params = { 'a&b+c d': 'value' };
       service.setSearch('', params);
-      const [, query] = platformLocation.replaceState.calls.mostRecent().args[2].split('?');
+      const [, query] = platformLocation.replaceState.mock.calls[platformLocation.replaceState.mock.calls.length - 1][2].split('?');
       expect(query).toContain('a%26b%2Bc%20d=value');
     });
   });
@@ -561,15 +561,15 @@ describe('LocationService', () => {
     it('should call locationChanged with initial URL', () => {
       const initialUrl = location.path().replace(/^\/+/, '');  // strip leading slashes
 
-      expect(gaLocationChanged.calls.count()).toBe(1, 'gaService.locationChanged');
-      const args = gaLocationChanged.calls.first().args;
+      expect(gaLocationChanged.mock.calls.length).toBe(1);
+      const args = gaLocationChanged.mock.calls[0];
       expect(args[0]).toBe(initialUrl);
     });
 
     it('should call locationChanged when `go` to a page', () => {
       service.go('some-new-url');
-      expect(gaLocationChanged.calls.count()).toBe(2, 'gaService.locationChanged');
-      const args = gaLocationChanged.calls.argsFor(1);
+      expect(gaLocationChanged.mock.calls.length).toBe(2);
+      const args = gaLocationChanged.mock.calls[1];
       expect(args[0]).toBe('some-new-url');
     });
 
@@ -579,17 +579,17 @@ describe('LocationService', () => {
       service.go('some-new-url#one');
       service.go('some-new-url#two');
       service.go('some-new-url/?foo="true"');
-      expect(gaLocationChanged.calls.count()).toBe(4, 'gaService.locationChanged called');
-      const args = gaLocationChanged.calls.allArgs();
-      expect(args[1]).toEqual(args[2], 'same url for hash calls');
-      expect(args[1]).toEqual(args[3], 'same url for query string call');
+      expect(gaLocationChanged.mock.calls.length).toBe(4);
+      const args = gaLocationChanged.mock.calls[0];
+      expect(args[1]).toEqual(args[2]);
+      expect(args[1]).toEqual(args[3]);
     });
 
     it('should call locationChanged when window history changes', () => {
       location.simulatePopState('/next-url');
 
-      expect(gaLocationChanged.calls.count()).toBe(2, 'gaService.locationChanged');
-      const args = gaLocationChanged.calls.argsFor(1);
+      expect(gaLocationChanged.mock.calls.length).toBe(2);
+      const args = gaLocationChanged.mock.calls[1];
       expect(args[0]).toBe('next-url');
     });
 

@@ -147,7 +147,7 @@ describe('ElementsLoader', () => {
       expect(definedSpy).toHaveBeenCalledWith('element-a-selector', jasmine.any(Function));
 
       // Verify the right component was loaded/registered.
-      const Ctor = definedSpy.calls.argsFor(0)[1];
+      const Ctor = definedSpy.mock.calls[0][1];
       expect(Ctor.observedAttributes).toEqual(['element-a-module-path']);
     }));
 
