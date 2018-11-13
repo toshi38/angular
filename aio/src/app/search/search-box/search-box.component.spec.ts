@@ -84,7 +84,7 @@ describe('SearchBoxComponent', () => {
   describe('on input', () => {
     it('should trigger a search', () => {
       const input = fixture.debugElement.query(By.css('input'));
-      spyOn(component, 'doSearch');
+      jest.spyOn(component, 'doSearch').mockImplementation(jest.fn);
       input.triggerEventHandler('input', { });
       expect(component.doSearch).toHaveBeenCalled();
     });
@@ -93,7 +93,7 @@ describe('SearchBoxComponent', () => {
   describe('on keyup', () => {
     it('should trigger a search', () => {
       const input = fixture.debugElement.query(By.css('input'));
-      spyOn(component, 'doSearch');
+      jest.spyOn(component, 'doSearch').mockImplementation(jest.fn);
       input.triggerEventHandler('keyup', { });
       expect(component.doSearch).toHaveBeenCalled();
     });
@@ -111,7 +111,7 @@ describe('SearchBoxComponent', () => {
   describe('on click', () => {
     it('should trigger a search', () => {
       const input = fixture.debugElement.query(By.css('input'));
-      spyOn(component, 'doSearch');
+      jest.spyOn(component, 'doSearch').mockImplementation(jest.fn);
       input.triggerEventHandler('click', { });
       expect(component.doSearch).toHaveBeenCalled();
     });

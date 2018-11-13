@@ -27,7 +27,7 @@ describe('FileNotFoundSearchComponent', () => {
     fixture = TestBed.createComponent(FileNotFoundSearchComponent);
     searchService = TestBed.get(SearchService);
     searchResultSubject = new Subject<SearchResults>();
-    spyOn(searchService, 'search').and.callFake(() => searchResultSubject.asObservable());
+    jest.spyOn(searchService, 'search').mockImplementation(() => searchResultSubject.asObservable());
     fixture.detectChanges();
   });
 

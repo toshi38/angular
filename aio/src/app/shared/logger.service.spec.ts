@@ -8,8 +8,8 @@ describe('logger service', () => {
   let errorHandler: ErrorHandler;
 
   beforeEach(() => {
-    logSpy = spyOn(console, 'log');
-    warnSpy = spyOn(console, 'warn');
+    logSpy = jest.spyOn(console, 'log').mockImplementation(jest.fn);
+    warnSpy = jest.spyOn(console, 'warn').mockImplementation(jest.fn);
     const injector = ReflectiveInjector.resolveAndCreate([
       Logger,
       { provide: ErrorHandler, useClass: MockErrorHandler }

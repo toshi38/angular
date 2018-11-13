@@ -712,7 +712,7 @@ describe("AppComponent", () => {
             });
 
             it("should restrain scrolling inside the ToC container", () => {
-                const restrainScrolling = spyOn(component, "restrainScrolling");
+                const restrainScrolling = jest.spyOn(component, "restrainScrolling").mockImplementation(jest.fn);
                 const evt = new MouseEvent("mousewheel");
 
                 setHasFloatingToc(true);
@@ -834,7 +834,7 @@ describe("AppComponent", () => {
                     const searchBox: SearchBoxComponent = fixture.debugElement.query(
                         By.directive(SearchBoxComponent)
                     ).componentInstance;
-                    spyOn(searchBox, "focus");
+                    jest.spyOn(searchBox, "focus").mockImplementation(jest.fn);
                     window.document.dispatchEvent(
                         new KeyboardEvent("keyup", { key: "/" })
                     );
@@ -846,7 +846,7 @@ describe("AppComponent", () => {
                     const searchBox: SearchBoxComponent = fixture.debugElement.query(
                         By.directive(SearchBoxComponent)
                     ).componentInstance;
-                    spyOn(searchBox, "focus");
+                    jest.spyOn(searchBox, "focus").mockImplementation(jest.fn);
                     component.showSearchResults = true;
                     window.document.dispatchEvent(
                         new KeyboardEvent("keyup", { key: "Escape" })
@@ -894,7 +894,7 @@ describe("AppComponent", () => {
                 });
 
                 it("should re-run the search when the search box regains focus", () => {
-                    const doSearchSpy = spyOn(component, "doSearch");
+                    const doSearchSpy = jest.spyOn(component, "doSearch").mockImplementation(jest.fn);
                     const searchBox = fixture.debugElement.query(
                         By.directive(SearchBoxComponent)
                     );

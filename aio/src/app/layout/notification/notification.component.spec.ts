@@ -55,7 +55,7 @@ describe('NotificationComponent', () => {
   it('should call dismiss() when the message link is clicked, if dismissOnContentClick is true', () => {
     configTestingModule();
     createComponent();
-    spyOn(component, 'dismiss');
+    jest.spyOn(component, 'dismiss').mockImplementation(jest.fn);
     component.dismissOnContentClick = true;
     const message: HTMLSpanElement = fixture.debugElement.query(By.css('.messageholder')).nativeElement;
     message.click();
@@ -65,7 +65,7 @@ describe('NotificationComponent', () => {
   it('should not call dismiss() when the message link is clicked, if dismissOnContentClick is false', () => {
     configTestingModule();
     createComponent();
-    spyOn(component, 'dismiss');
+    jest.spyOn(component, 'dismiss').mockImplementation(jest.fn);
     component.dismissOnContentClick = false;
     const message: HTMLSpanElement = fixture.debugElement.query(By.css('.messageholder')).nativeElement;
     message.click();
@@ -75,7 +75,7 @@ describe('NotificationComponent', () => {
   it('should call dismiss() when the close button is clicked', () => {
     configTestingModule();
     createComponent();
-    spyOn(component, 'dismiss');
+    jest.spyOn(component, 'dismiss').mockImplementation(jest.fn);
     fixture.debugElement.query(By.css('button')).triggerEventHandler('click', null);
     fixture.detectChanges();
     expect(component.dismiss).toHaveBeenCalled();

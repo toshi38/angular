@@ -18,7 +18,7 @@ describe('Getting Started Event Binding Component', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
 
-    spyOn(window, 'alert');
+    jest.spyOn(window, 'alert').mockImplementation(jest.fn);
   });
 
   it('should update the name property on input change', () => {
