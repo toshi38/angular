@@ -20,7 +20,7 @@
     "build-local": "yarn ~~build --configuration=stable",
     "extract-cli-command-docs": "node tools/transforms/cli-docs-package/extract-cli-commands.js b50950b97",
     "lint": "yarn check-env && yarn docs-lint && ng lint && yarn example-lint && yarn tools-lint",
-    "test": "yarn check-env && ng test",
+    "test": "yarn check-env && ng test --watch=false",
     "pree2e": "yarn check-env && yarn update-webdriver",
     "e2e": "ng e2e --no-webdriver-update",
     "presetup": "yarn --cwd .. install && yarn install --frozen-lockfile && yarn ~~check-env && yarn ~~clean-generated && yarn boilerplate:remove",
